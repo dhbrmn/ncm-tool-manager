@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace NcmToolManager.Library
 {
-    internal class GlobalConfig
+    public static class GlobalConfig
     {
+        public static string SqlCnnString()
+        {
+            string cnnString = @"Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;";
+            return cnnString;
+        }
+
     }
 }
