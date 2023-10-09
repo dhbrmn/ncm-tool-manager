@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NcmToolManager.Library.Models
 {
-    public class ManufacturerModel
+    public class SerialModel
     {
     }
 }

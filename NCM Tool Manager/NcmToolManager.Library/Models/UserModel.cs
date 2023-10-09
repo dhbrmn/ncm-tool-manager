@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NcmToolManager.Library.Models
 {
-    internal class UserModel
+    public class UserModel
     {
     }
 }
