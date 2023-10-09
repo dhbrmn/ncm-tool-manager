@@ -7,4 +7,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\NcmToolManager.Library\NcmToolManager.Library.csproj" />
+  </ItemGroup>
+
 </Project>
