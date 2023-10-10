@@ -30,7 +30,11 @@ namespace NcmToolManager.Library.Models
             _name = name;
             _role = role;
         }
-
+        public UserModel( string userName, string password )
+        {
+            _userName = userName;
+            _password = password;
+        }
         public UserModel(string name, string lastName, int role)
         {
             _name = name;

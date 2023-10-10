@@ -1,4 +1,6 @@
 ﻿using Dapper;
+using NcmToolManager.Library.DataAccess;
+using NcmToolManager.Library.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -12,24 +14,16 @@ namespace NcmToolManager.Library.Functions
 {
     public class PasswordHandling
     {
-        /// <summary>
-        /// Generator for random password salts
-        /// </summary>
-        /// <returns>Returns randomized salt value for password encryption</returns>
+
         private static byte[] GenerateSalt()
         {
-            Random rnd = new Random();
+            Random rnd = new ();
             byte[] salt = new byte[16];
             rnd.NextBytes(salt);
             return salt;
         }
-        /// <summary>
-        /// Method to encrypt a string password into a hash form
-        /// </summary>
-        /// <param name="stringPassword">String of input password to be encrypted</param>
-        /// <param name="salt">Output string of random generated salt parameter to store in db</param>
-        /// <returns>Returns hash encrypted password</returns>
-        public static string EncryptPassword(string stringPassword, out string salt)
+
+        public static PasswordModel EncryptPassword(string stringPassword)
         {
             byte[] saltByte = GenerateSalt();
             var pbkdf2 = new Rfc2898DeriveBytes(stringPassword, saltByte, 10000);
@@ -37,25 +31,42 @@ namespace NcmToolManager.Library.Functions
             byte[] passByte = new byte[32];
             Array.Copy(saltByte, 0, passByte, 0, 16);
             Array.Copy(hashByte, 0, passByte, 16, 16);
-            salt = Convert.ToBase64String(saltByte);
-            return Convert.ToBase64String(passByte);
+            PasswordModel passwordModel = new(Convert.ToBase64String(passByte), Convert.ToBase64String(saltByte));
+            return passwordModel;
         }
-        /// <summary>
-        /// Verifies if the input password is the same as the stored password
-        /// </summary>
-        /// <param name="password">String as the input password</param>
-        /// <returns>Returns boolean if the passwords match</returns>
-        public static bool VerifyPassword(string password)
+        public static bool VerifyUser( string username )
         {
             bool isMatch = false;
-            byte[] salt = Convert.FromBase64String(GetUserSalt());
-            byte[] pass = Convert.FromBase64String(GetUserPass());
+            UserModel user = new();
+            user.UserName = username;
+            try
+            {
+                user = SqlServerAccess.ReadUserFromDb(user);
+            }
+            catch
+            {
+                return isMatch;
+            }
+            isMatch = true;
+            return isMatch;
+        }
+        public static bool VerifyPassword( string username, string password )
+        {
+            
+            bool isMatch = false;
+            UserModel user = new(username, password);
+
+            UserModel fullUser = SqlServerAccess.ReadUserFromDb(user);
+
+            byte[] salt = Convert.FromBase64String(fullUser.Salt);
             var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 10000);
             byte[] hashByte = pbkdf2.GetBytes(16);
             byte[] passByte = new byte[32];
             Array.Copy(salt, 0, passByte, 0, 16);
             Array.Copy(hashByte, 0, passByte, 16, 16);
-            if (passByte == pass)
+            string passString = Convert.ToBase64String(passByte);
+
+            if (passString.Equals(fullUser.Password))
             {
                 isMatch = true;
             }
