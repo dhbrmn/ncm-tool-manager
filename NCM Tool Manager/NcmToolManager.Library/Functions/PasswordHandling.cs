@@ -43,6 +43,7 @@ namespace NcmToolManager.Library.Functions
             {
                 return false;
             }
+
             byte[] salt = Convert.FromBase64String(fullUser.Salt);
             byte[] storedHash = Convert.FromBase64String(fullUser.Password);
             byte[] inputHash = ComputeHash(password, salt);
@@ -52,11 +53,11 @@ namespace NcmToolManager.Library.Functions
         private static byte[] GenerateSalt()
         {
             using (RandomNumberGenerator rng = RandomNumberGenerator.Create())
-                {
-                byte[] salt = new byte[SaltSize];
-                rng.GetBytes(salt);
+            {
+                 byte[] salt = new byte[SaltSize];
+                 rng.GetBytes(salt);
                 return salt;
-                }
+            }
         }
 
         private static byte[] ComputeHash(string password, byte[] salt)

@@ -27,7 +27,6 @@ namespace NcmToolManager.Library.DataAccess
             using (var connection = new SqlConnection(GlobalConfig.InitialSqlCnnString()))
             {
                 connection.Execute(sqlCreateDb);
-                connection.Close();
             }
 
             //Creates table Users with a default admin user for first run
@@ -46,7 +45,6 @@ namespace NcmToolManager.Library.DataAccess
             using (var connection = new SqlConnection(GlobalConfig.SqlCnnString()))
             {
                 connection.Execute("USE NcmToolManagerDb; Create TABLE Users ( Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, Name NVARCHAR(50) NOT NULL, LastName NVARCHAR(50), UserName NVARCHAR(50), Password NVARCHAR(50), Salt NVARCHAR(50), Role INT NOT NULL); INSERT INTO Users (Name, UserName, Password, Salt, Role) VALUES (@Name , @UserName , @Password , @Salt , @Role);", param);
-                connection.Close();
             }
             
 
