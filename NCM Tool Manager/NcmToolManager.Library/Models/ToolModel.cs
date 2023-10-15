@@ -7,11 +7,13 @@ namespace NcmToolManager.Library.Models
         // Properties
         public int Id { get; set; }
         public string Name { get; set; }
-        public SerialModel Serial { get; }
         public ManufacturerModel Manufacturer { get; set; }
         public SellerModel Seller { get; set; }
 
         // Constructors
+        public ToolModel()
+        {
+        }
         public ToolModel(string name)
         {
             Name = name;
@@ -19,14 +21,15 @@ namespace NcmToolManager.Library.Models
         }
 
         public ToolModel(string name, ManufacturerModel manufacturer)
-            : this(name)
         {
+            Name = name;
             Manufacturer = manufacturer;
         }
 
         public ToolModel(string name, ManufacturerModel manufacturer, SellerModel seller)
-            : this(name, manufacturer)
         {
+            Name = name;
+            Manufacturer = manufacturer;
             Seller = seller;
         }
     }

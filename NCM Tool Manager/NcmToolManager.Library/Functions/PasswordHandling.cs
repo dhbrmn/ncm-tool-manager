@@ -22,7 +22,7 @@ namespace NcmToolManager.Library.Functions
         {
             try
             {
-                UserModel user = SqlServerAccess.ReadUserFromDb(new UserModel { UserName = username });
+                LoginModel user = SqlServerAccess.ReadLoginFromDb(new LoginModel { UserName = username });
                 return true;
             }
             catch
@@ -33,11 +33,11 @@ namespace NcmToolManager.Library.Functions
         public static bool VerifyPassword( string username, string password )
         {
             
-            UserModel user = new UserModel { UserName = username };
-            UserModel fullUser;
+            LoginModel user = new LoginModel { UserName = username };
+            LoginModel fullUser;
             try
             {
-                fullUser = SqlServerAccess.ReadUserFromDb(user);
+                fullUser = SqlServerAccess.ReadLoginFromDb(user);
             }
             catch
             {
