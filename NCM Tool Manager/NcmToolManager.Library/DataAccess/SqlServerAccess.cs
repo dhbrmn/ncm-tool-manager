@@ -66,32 +66,30 @@ namespace NcmToolManager.Library.DataAccess
                 connection.Execute("USE NcmToolManagerDb; Create TABLE Manufacturers ( Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, Name NVARCHAR(50) NOT NULL);");
             }
 
+            //Creates table SalesPeople
+            using (var connection = new SqlConnection(GlobalConfig.SqlCnnString()))
+            {
+                connection.Execute("USE NcmToolManagerDb; Create TABLE SalesPeople (Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, Name NVARCHAR(50) NOT NULL, LastName NVARCHAR(50) NOT NULL, Email NVARCHAR(50), Phone NVARCHAR(50));");
+            }
+
             //Crates table Sellers
             using (var connection = new SqlConnection(GlobalConfig.SqlCnnString()))
             {
-
-            }
-
-            //Crates table Tools
-
-            using (var connection = new SqlConnection(GlobalConfig.SqlCnnString()))
-            {
-
+                connection.Execute("USE NcmToolManagerDb; Create TABLE Sellers (Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, Name NVARCHAR(50) NOT NULL, Address NVARCHAR(50) NOT NULL, City NVARCHAR(50), PostalCode NVARCHAR(50), Country NVARCHAR(50), SalesPersonId INT, FOREIGN KEY (SalesPersonId) REFERENCES SalesPeople (Id));");
             }
 
             //Crates table Serials
             using (var connection = new SqlConnection(GlobalConfig.SqlCnnString()))
             {
-                connection.Execute("USE NcmToolManagerDb; Create TABLE Serials");
+                connection.Execute("USE NcmToolManagerDb; Create TABLE Serials (Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, ToolId INT NOT NULL, UserId INT), FOREIGN KEY (ToolId) REFERENCES Tools (Id), FOREIGN KEY (UserId) REFERENCES Users (Id));");
             }
 
-
-
-
-                //TODO - finish the database initialization
-
-
+            //Crates table Tools
+            using (var connection = new SqlConnection(GlobalConfig.SqlCnnString()))
+            {
+                connection.Execute("USE NcmToolManagerDb; Create TABLE Tools (Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, Name NVARCHAR(50) NOT NULL, Description NVARCHAR(255), SerialId INT, ManufacturerId INT, LinkedToolId INT, FOREIGN KEY (SerialId) REFERENCES Serials (Id), FOREIGN KEY (ManufacturerId) REFERENCES Manufacturers (Id), FOREIGN KEY (LinkedToolId) REFERENCES Tools (Id));");
             }
+        }
     }
 }
        
