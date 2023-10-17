@@ -9,7 +9,7 @@ namespace NcmToolManager.Library.DataAccess
 {
     public class SqlServerAccess : IDataAccess
     {
-        //TODO - Create methods NewManufacturer(), NewSeller(), NewSalesPerson(), NewTool(), NewSerial()
+        //TODO - Create methods NewSeller(), NewSalesPerson(), NewTool(), NewSerial()
         /// <summary>
         /// Creates a new database entry in the manufacturers table
         /// </summary>
@@ -164,22 +164,28 @@ namespace NcmToolManager.Library.DataAccess
                 connection.Execute("USE NcmToolManagerDb; Create TABLE Manufacturers ( Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, Name NVARCHAR(50) NOT NULL);");
             }
 
-            //Creates table SalesPeople
-            using (var connection = new SqlConnection(GlobalConfig.SqlCnnString()))
-            {
-                connection.Execute("USE NcmToolManagerDb; Create TABLE SalesPeople (Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, Name NVARCHAR(50) NOT NULL, LastName NVARCHAR(50) NOT NULL, Email NVARCHAR(50), Phone NVARCHAR(50));");
-            }
-
             //Crates table Sellers
             using (var connection = new SqlConnection(GlobalConfig.SqlCnnString()))
             {
-                connection.Execute("USE NcmToolManagerDb; Create TABLE Sellers (Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, Name NVARCHAR(50) NOT NULL, Address NVARCHAR(50) NOT NULL, City NVARCHAR(50), PostalCode NVARCHAR(50), Country NVARCHAR(50), SalesPersonId INT, FOREIGN KEY (SalesPersonId) REFERENCES SalesPeople (Id));");
+                connection.Execute("USE NcmToolManagerDb; Create TABLE Sellers (Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, Name NVARCHAR(50) NOT NULL, Address NVARCHAR(50) NOT NULL, City NVARCHAR(50), PostalCode NVARCHAR(50), Country NVARCHAR(50));");
+            }
+
+            //Creates table SalesPeople
+            using (var connection = new SqlConnection(GlobalConfig.SqlCnnString()))
+            {
+                connection.Execute("USE NcmToolManagerDb; Create TABLE SalesPeople (Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, Name NVARCHAR(50) NOT NULL, LastName NVARCHAR(50) NOT NULL, Email NVARCHAR(50), Phone NVARCHAR(50), SellerId INT NOT NULL, FOREIGN KEY (SellerId) REFERENCES Sellers (Id));");
+            }
+
+            //Creates table SellManuLink
+            using (var connection = new SqlConnection(GlobalConfig.SqlCnnString()))
+            {
+                connection.Execute("USE NcmToolManagerDb; Create TABLE SellManuLink (Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, SellerId INT NOT NULL, ManufacturerId INT NOT NULL, FOREIGN KEY (SellerId) REFERENCES Sellers (Id), FOREIGN KEY (ManufacturerId) REFERENCES Manufacturers (Id));");
             }
 
             //Crates table Tools
             using (var connection = new SqlConnection(GlobalConfig.SqlCnnString()))
             {
-                connection.Execute("USE NcmToolManagerDb; Create TABLE Tools (Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, Name NVARCHAR(50) NOT NULL, Description NVARCHAR(255), ManufacturerId INT, LinkedToolId INT, FOREIGN KEY (ManufacturerId) REFERENCES Manufacturers (Id), FOREIGN KEY (LinkedToolId) REFERENCES Tools (Id));");
+                connection.Execute("USE NcmToolManagerDb; Create TABLE Tools (Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, Name NVARCHAR(50) NOT NULL, Description NVARCHAR(255), ManufacturerId INT, FOREIGN KEY (ManufacturerId) REFERENCES Manufacturers (Id));");
             }
 
             //Crates table Serials

@@ -61,8 +61,8 @@ namespace NcmToolManager.TestingConsole
             //string lastName = "  ";
             //SqlServerAccess.NewUser(name, lastName);
 
-            string manuName = "";
-            SqlServerAccess.NewManufacturer( manuName );
+            //string manuName = "";
+            //SqlServerAccess.NewManufacturer( manuName );
         }
     }
 }
