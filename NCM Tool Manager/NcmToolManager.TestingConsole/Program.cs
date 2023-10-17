@@ -9,11 +9,11 @@ namespace NcmToolManager.TestingConsole
         public static void Main( string[] args )
         {
 
-            Console.WriteLine("Testing DB creation");
-            var db = new SqlServerAccess();
-            db.CreateDb();
-            Console.WriteLine("Done");
-            Console.ReadLine();
+            //Console.WriteLine("Testing DB creation");
+            //var db = new SqlServerAccess();
+            //db.CreateDb();
+            //Console.WriteLine("Done");
+            //Console.ReadLine();
 
             //Console.WriteLine("Testing password hash generation");
             //PasswordModel password = PasswordHandling.EncryptPassword("test1");
@@ -48,6 +48,14 @@ namespace NcmToolManager.TestingConsole
             //    Console.WriteLine("There is no user with this username!");
             //}
 
+            //LoginModel loginModel = new LoginModel();
+            //loginModel.UserName = "admin";
+            //SqlServerAccess.ReadLoginFromDb( loginModel );
+
+
+            //string username = "";
+            //string password = "";
+            //SqlServerAccess.NewLogin( username, password );
         }
     }
 }

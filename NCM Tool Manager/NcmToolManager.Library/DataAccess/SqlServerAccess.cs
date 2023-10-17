@@ -3,24 +3,76 @@ using System.Data.SqlClient;
 using NcmToolManager.Library.Models;
 using NcmToolManager.Library.Functions;
 using System.Security.Cryptography.Xml;
+using System;
 
 namespace NcmToolManager.Library.DataAccess
 {
     public class SqlServerAccess : IDataAccess
     {
-        //TODO - Create methods GetUserSalt() and GetUserPass() and StoreUserPass()
+        //TODO - Create methods NewUser(), NewManufacturer(), NewSeller(), NewSalesPerson(), NewTool(), NewSerial()
+        /// <summary>
+        /// Creates a new database entry in the logins table
+        /// </summary>
+        /// <param name="username">User input username</param>
+        /// <param name="password">User input password</param>
+        /// <exception cref="NullReferenceException">Returns exception if the username or password or both are empty or null.</exception>
+        public static void NewLogin(string username, string password)
+        {
+            if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
+            {
+                using (var connection = new SqlConnection(GlobalConfig.SqlCnnString()))
+                {
+                    PasswordModel encryptedPassword = PasswordHandling.EncryptPassword(password);
+                    var input = new DynamicParameters();
+                    input.Add("@UserName", username);
+                    input.Add("@Password", encryptedPassword.Password);
+                    input.Add("@Salt", encryptedPassword.Salt);
+                    input.Add("@Role", 1);
+
+                    connection.Execute("USE NcmToolManagerDb; INSERT INTO Logins (UserName, Password, Salt, Role) VALUES (@UserName, @Password, @Salt, @Role);", input);
+                }
+
+            }
+            else
+            {
+                throw new NullReferenceException("Both username and password needed to create new login credentials.");
+            }
+
+        }
+        /// <summary>
+        /// Reads database using the username of a LoginModel
+        /// </summary>
+        /// <param name="credentials">Input object LoginModel requires at least the username field in order for the search to execute</param>
+        /// <returns>Full login model with hashed password and hashed password salt</returns>
         public static LoginModel ReadLoginFromDb( LoginModel credentials )
         {
-            var input = new DynamicParameters();
-            input.Add("@UserName", credentials.UserName);
-            LoginModel fullCredentials = new();
-            using (var connection = new SqlConnection(GlobalConfig.SqlCnnString()))
+            if (!string.IsNullOrWhiteSpace(credentials.UserName))
             {
-                fullCredentials = (LoginModel)connection.QuerySingle<LoginModel>("SELECT * FROM Logins WHERE UserName = @UserName", input);
+                var input = new DynamicParameters();
+                input.Add("@UserName", credentials.UserName);
+                LoginModel fullCredentials = new();
+                try
+                {
+                    using (var connection = new SqlConnection(GlobalConfig.SqlCnnString()))
+                    {
+                        fullCredentials = connection.QuerySingle<LoginModel>("SELECT * FROM Logins WHERE UserName = @UserName", input);
+                    }
+                return fullCredentials;
+                }
+                catch
+                {
+                    throw new InvalidOperationException("There is no such username stored in the database.");
+                }
             }
-            return fullCredentials;
+            else
+            {
+                throw new NullReferenceException("No username to search the database with.");
+            }
         }
-        public void CreateDb()
+        /// <summary>
+        /// Creates a new database and tables. Also creates  a default "Admin" user for first time use.
+        /// </summary>
+        public static void CreateDb()
         {
 
             //Creates the Database
@@ -42,7 +94,7 @@ namespace NcmToolManager.Library.DataAccess
                 loginParam.Add("@Salt", password.Salt);
                 loginParam.Add("@Role", admin.Role);
 
-                connection.Execute("USE NcmToolManagerDb; Create TABLE Logins ( Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, UserName NVARCHAR(50), Password NVARCHAR(50), Salt NVARCHAR(50), Role INT NOT NULL); INSERT INTO Logins (UserName, Password, Salt, Role) VALUES (@UserName , @Password , @Salt , @Role);", loginParam);
+                connection.Execute("USE NcmToolManagerDb; Create TABLE Logins ( Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, UserName NVARCHAR(50) UNIQUE NOT NULL, Password NVARCHAR(50) NOT NULL, Salt NVARCHAR(50) NOT NULL, Role INT NOT NULL); INSERT INTO Logins (UserName, Password, Salt, Role) VALUES (@UserName , @Password , @Salt , @Role);", loginParam);
             }
 
             //Creates table Users and links the admin login to the user
