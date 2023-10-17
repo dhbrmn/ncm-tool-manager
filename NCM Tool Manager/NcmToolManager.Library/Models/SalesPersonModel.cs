@@ -13,9 +13,10 @@ namespace NcmToolManager.Library.Models
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
+        public int SellerId { get; set; }
 
         public SalesPersonModel() { }
-        public SalesPersonModel(string name, string lastName, string email, string phone, string address, string city, string country)
+        public SalesPersonModel(string name, string lastName, string email, string phone)
         {
             Name = name;
             LastName = lastName;

@@ -14,7 +14,6 @@ namespace NcmToolManager.Library.Models
         public string City { get; set; }
         public string PostalCode { get; set; }
         public string Country { get; set; }
-        public int SalesPersonId { get; set; }
         public SellerModel() { }
         public SellerModel(string name, string address, string city, string postalCode, string country)
         {

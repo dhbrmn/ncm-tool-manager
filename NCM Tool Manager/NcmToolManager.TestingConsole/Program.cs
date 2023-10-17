@@ -9,11 +9,10 @@ namespace NcmToolManager.TestingConsole
         public static void Main( string[] args )
         {
 
-            //Console.WriteLine("Testing DB creation");
-            //var db = new SqlServerAccess();
-            //db.CreateDb();
-            //Console.WriteLine("Done");
-            //Console.ReadLine();
+            Console.WriteLine("Testing DB creation");
+            SqlServerAccess.CreateDb();
+            Console.WriteLine("Done");
+            Console.ReadLine();
 
             //Console.WriteLine("Testing password hash generation");
             //PasswordModel password = PasswordHandling.EncryptPassword("test1");
