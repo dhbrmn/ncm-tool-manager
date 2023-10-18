@@ -15,11 +15,23 @@ namespace NcmToolManager.Library.Models
         public int Role { get; set; }
 
         public LoginModel() { }
-        public LoginModel(string userName, PasswordModel passMod, int role)
+        public LoginModel( string userName )
         {
             UserName = userName;
-            Password = passMod.Password;
-            Salt = passMod.Salt;
+        }
+        public LoginModel (string userName, string password )
+        {
+            UserName = userName;
+            var hashOutput = new PasswordModel( password );
+            Password = hashOutput.Password;
+            Salt = hashOutput.Salt;
+            Role = 0;
+        }
+        public LoginModel(string userName, string password, string salt, int role)
+        {
+            UserName = userName;
+            Password = password;
+            Salt = salt;
             Role = role;
         }
 

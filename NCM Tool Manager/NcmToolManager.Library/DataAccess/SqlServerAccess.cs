@@ -10,90 +10,73 @@ namespace NcmToolManager.Library.DataAccess
 {
     public class SqlServerAccess : IDataAccess
     {
-        //TODO - Create methods NewSeller(), NewSalesPerson(), NewTool(), NewSerial()
-        public static void NewSeller(string name)
+        //TODO - Create methods NewTool(), NewSerial()
+        public static void NewSalesPerson(SalesPersonModel newSalesPerson, SellerModel designatedSeller)
         {
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                throw new NullReferenceException("A seller needs a name.");
-            }
             using (var connection = new SqlConnection(GlobalConfig.SqlCnnString()))
             {
                 var input = new DynamicParameters();
-                input.Add("@Name", name);
+                input.Add("@Name", newSalesPerson.Name);
+                input.Add("@LastName", newSalesPerson.LastName);
+                input.Add("@Email", newSalesPerson.Email);
+                input.Add("@Phone", newSalesPerson.Phone);
+                input.Add("@SellerId", designatedSeller.Id);
 
-                connection.Execute("USE NcmToolManagerDb; INSERT INTO Sellers (Name) VALUES (@Name);", input);
+                connection.Execute("USE NcmToolManagerDb; INSERT INTO SalesPeople (Name, LastName, Email, Phone, SellerId) VALUES (@Name, @LastName, @Email, @Phone, @SellerId);", input);
             }
         }
-        /// <summary>
-        /// Creates a new database entry in the manufacturers table
-        /// </summary>
-        /// <param name="name">String input for the name of the manufacturer</param>
-        /// <exception cref="NullReferenceException">Returns if there is no name input</exception>
-        public static void NewManufacturer(string name)
+        public static void NewSeller(SellerModel newSeller)
         {
-            if (string.IsNullOrWhiteSpace(name))
+            using (var connection = new SqlConnection(GlobalConfig.SqlCnnString()))
             {
-                throw new NullReferenceException("A manufacturer needs a name.");
+                var input = new DynamicParameters();
+                input.Add("@Name", newSeller.Name);
+                input.Add("@Address", newSeller.Address);
+                input.Add("@City", newSeller.City);
+                input.Add("@PostalCode", newSeller.PostalCode);
+                input.Add("@Country", newSeller.Country);
+
+                connection.Execute("USE NcmToolManagerDb; INSERT INTO Sellers (Name, Address, City, PostalCode, Country) VALUES (@Name, @Address, @City, @PostalCode, @Country);", input);
             }
+        }
+
+        public static void NewManufacturer(ManufacturerModel newManufacturer)
+        {
                 using (var connection = new SqlConnection(GlobalConfig.SqlCnnString()))
                 {
                     var input = new DynamicParameters();
-                    input.Add("@Name", name);
+                    input.Add("@Name", newManufacturer.Name);
 
                     connection.Execute("USE NcmToolManagerDb; INSERT INTO Manufacturers (Name) VALUES (@Name);", input);
                 }
         }
-        /// <summary>
-        /// Creates a new database entry in the users table
-        /// </summary>
-        /// <param name="name">String input for a name</param>
-        /// <param name="lastName">String input for a surname</param>
-        /// <exception cref="NullReferenceException">Returns if the name and surname are empty or blank.</exception>
-        public static void NewUser(string name, string lastName)
+     
+        public static void NewUser(UserModel newUser)
         {
-            if (string.IsNullOrWhiteSpace(name) && string.IsNullOrWhiteSpace(lastName))
-            {
-                throw new NullReferenceException("A user needs both a name and a surname.");
-            }
                 using (var connection = new SqlConnection(GlobalConfig.SqlCnnString()))
                 {
                     var input = new DynamicParameters();
-                    input.Add("@Name", name);
-                    input.Add("@LastName", lastName);
+                    input.Add("@Name", newUser.Name);
+                    input.Add("@LastName", newUser.LastName);
 
                     connection.Execute("USE NcmToolManagerDb; INSERT INTO Users (Name, LastName) VALUES (@Name, @LastName);", input);
                 }
         }
-        /// <summary>
-        /// Creates a new database entry in the logins table
-        /// </summary>
-        /// <param name="username">User input username</param>
-        /// <param name="password">User input password</param>
-        /// <exception cref="NullReferenceException">Returns exception if the username or password or both are empty or null.</exception>
-        public static void NewLogin(string username, string password)
+
+        public static void NewLogin(LoginModel newLogin)
         {
-            if (string.IsNullOrWhiteSpace(username) && string.IsNullOrWhiteSpace(password))
-            {
-                throw new NullReferenceException("Both username and password needed to create new login credentials.");
-            }
                 using (var connection = new SqlConnection(GlobalConfig.SqlCnnString()))
                 {
-                    PasswordModel encryptedPassword = PasswordHandling.EncryptPassword(password);
                     var input = new DynamicParameters();
-                    input.Add("@UserName", username);
-                    input.Add("@Password", encryptedPassword.Password);
-                    input.Add("@Salt", encryptedPassword.Salt);
+                    input.Add("@UserName", newLogin.UserName);
+                    input.Add("@Password", newLogin.Password);
+                    input.Add("@Salt", newLogin.Salt);
                     input.Add("@Role", 1);
 
                     connection.Execute("USE NcmToolManagerDb; INSERT INTO Logins (UserName, Password, Salt, Role) VALUES (@UserName, @Password, @Salt, @Role);", input);
                 }
         }
-        /// <summary>
-        /// Reads database using the username of a LoginModel
-        /// </summary>
-        /// <param name="credentials">Input object LoginModel requires at least the username field in order for the search to execute</param>
-        /// <returns>Full login model with hashed password and hashed password salt</returns>
+
         public static LoginModel ReadLoginFromDb( LoginModel credentials )
         {
             if (string.IsNullOrWhiteSpace(credentials.UserName))
@@ -109,9 +92,7 @@ namespace NcmToolManager.Library.DataAccess
                     }
                 return fullCredentials;
         }
-        /// <summary>
-        /// Creates a new database and tables. Also creates  a default "Admin" user for first time use.
-        /// </summary>
+
         public static void CreateDb()
         {
 
@@ -128,7 +109,7 @@ namespace NcmToolManager.Library.DataAccess
             {
                 var loginParam = new DynamicParameters();
                 PasswordModel password = PasswordHandling.EncryptPassword("admin");
-                LoginModel admin = new("admin", password, 0);
+                LoginModel admin = (new LoginModel{UserName="admin", Role=0});
                 loginParam.Add("@UserName", admin.UserName);
                 loginParam.Add("@Password", password.Password);
                 loginParam.Add("@Salt", password.Salt);
