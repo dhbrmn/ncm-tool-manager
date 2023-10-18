@@ -4,12 +4,27 @@ using NcmToolManager.Library.Models;
 using NcmToolManager.Library.Functions;
 using System.Security.Cryptography.Xml;
 using System;
+using System.Xml.Linq;
 
 namespace NcmToolManager.Library.DataAccess
 {
     public class SqlServerAccess : IDataAccess
     {
         //TODO - Create methods NewSeller(), NewSalesPerson(), NewTool(), NewSerial()
+        public static void NewSeller(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new NullReferenceException("A seller needs a name.");
+            }
+            using (var connection = new SqlConnection(GlobalConfig.SqlCnnString()))
+            {
+                var input = new DynamicParameters();
+                input.Add("@Name", name);
+
+                connection.Execute("USE NcmToolManagerDb; INSERT INTO Sellers (Name) VALUES (@Name);", input);
+            }
+        }
         /// <summary>
         /// Creates a new database entry in the manufacturers table
         /// </summary>
@@ -146,7 +161,7 @@ namespace NcmToolManager.Library.DataAccess
             //Crates table Sellers
             using (var connection = new SqlConnection(GlobalConfig.SqlCnnString()))
             {
-                connection.Execute("USE NcmToolManagerDb; Create TABLE Sellers (Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, Name NVARCHAR(50) NOT NULL, Address NVARCHAR(50) NOT NULL, City NVARCHAR(50), PostalCode NVARCHAR(50), Country NVARCHAR(50));");
+                connection.Execute("USE NcmToolManagerDb; Create TABLE Sellers (Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, Name NVARCHAR(50) NOT NULL, Address NVARCHAR(50), City NVARCHAR(50), PostalCode NVARCHAR(50), Country NVARCHAR(50));");
             }
 
             //Creates table SalesPeople
