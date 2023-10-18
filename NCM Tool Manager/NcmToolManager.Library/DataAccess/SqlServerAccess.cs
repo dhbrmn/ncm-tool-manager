@@ -17,8 +17,10 @@ namespace NcmToolManager.Library.DataAccess
         /// <exception cref="NullReferenceException">Returns if there is no name input</exception>
         public static void NewManufacturer(string name)
         {
-            if (!string.IsNullOrWhiteSpace(name))
+            if (string.IsNullOrWhiteSpace(name))
             {
+                throw new NullReferenceException("A manufacturer needs a name.");
+            }
                 using (var connection = new SqlConnection(GlobalConfig.SqlCnnString()))
                 {
                     var input = new DynamicParameters();
@@ -26,11 +28,6 @@ namespace NcmToolManager.Library.DataAccess
 
                     connection.Execute("USE NcmToolManagerDb; INSERT INTO Manufacturers (Name) VALUES (@Name);", input);
                 }
-            }
-            else
-            {
-                throw new NullReferenceException("A manufacturer needs a name.");
-            }
         }
         /// <summary>
         /// Creates a new database entry in the users table
@@ -40,8 +37,10 @@ namespace NcmToolManager.Library.DataAccess
         /// <exception cref="NullReferenceException">Returns if the name and surname are empty or blank.</exception>
         public static void NewUser(string name, string lastName)
         {
-            if (!string.IsNullOrWhiteSpace(name) && !string.IsNullOrWhiteSpace(lastName))
+            if (string.IsNullOrWhiteSpace(name) && string.IsNullOrWhiteSpace(lastName))
             {
+                throw new NullReferenceException("A user needs both a name and a surname.");
+            }
                 using (var connection = new SqlConnection(GlobalConfig.SqlCnnString()))
                 {
                     var input = new DynamicParameters();
@@ -50,11 +49,6 @@ namespace NcmToolManager.Library.DataAccess
 
                     connection.Execute("USE NcmToolManagerDb; INSERT INTO Users (Name, LastName) VALUES (@Name, @LastName);", input);
                 }
-            }
-            else
-            {
-                throw new NullReferenceException("A user needs both a name and a surname.");
-            }
         }
         /// <summary>
         /// Creates a new database entry in the logins table
@@ -64,8 +58,10 @@ namespace NcmToolManager.Library.DataAccess
         /// <exception cref="NullReferenceException">Returns exception if the username or password or both are empty or null.</exception>
         public static void NewLogin(string username, string password)
         {
-            if (!string.IsNullOrWhiteSpace(username) && !string.IsNullOrWhiteSpace(password))
+            if (string.IsNullOrWhiteSpace(username) && string.IsNullOrWhiteSpace(password))
             {
+                throw new NullReferenceException("Both username and password needed to create new login credentials.");
+            }
                 using (var connection = new SqlConnection(GlobalConfig.SqlCnnString()))
                 {
                     PasswordModel encryptedPassword = PasswordHandling.EncryptPassword(password);
@@ -77,13 +73,6 @@ namespace NcmToolManager.Library.DataAccess
 
                     connection.Execute("USE NcmToolManagerDb; INSERT INTO Logins (UserName, Password, Salt, Role) VALUES (@UserName, @Password, @Salt, @Role);", input);
                 }
-
-            }
-            else
-            {
-                throw new NullReferenceException("Both username and password needed to create new login credentials.");
-            }
-
         }
         /// <summary>
         /// Reads database using the username of a LoginModel
@@ -92,28 +81,18 @@ namespace NcmToolManager.Library.DataAccess
         /// <returns>Full login model with hashed password and hashed password salt</returns>
         public static LoginModel ReadLoginFromDb( LoginModel credentials )
         {
-            if (!string.IsNullOrWhiteSpace(credentials.UserName))
+            if (string.IsNullOrWhiteSpace(credentials.UserName))
             {
+                throw new NullReferenceException("No username to search the database with.");
+            }
                 var input = new DynamicParameters();
                 input.Add("@UserName", credentials.UserName);
                 LoginModel fullCredentials = new();
-                try
-                {
                     using (var connection = new SqlConnection(GlobalConfig.SqlCnnString()))
                     {
                         fullCredentials = connection.QuerySingle<LoginModel>("SELECT * FROM Logins WHERE UserName = @UserName", input);
                     }
                 return fullCredentials;
-                }
-                catch
-                {
-                    throw new InvalidOperationException("There is no such username stored in the database.");
-                }
-            }
-            else
-            {
-                throw new NullReferenceException("No username to search the database with.");
-            }
         }
         /// <summary>
         /// Creates a new database and tables. Also creates  a default "Admin" user for first time use.
