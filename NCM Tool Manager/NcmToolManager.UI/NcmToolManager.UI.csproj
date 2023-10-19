@@ -8,11 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Views\" />
+    <None Remove="Images\back-image.jpg" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\NcmToolManager.Library\NcmToolManager.Library.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\back-image.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>
