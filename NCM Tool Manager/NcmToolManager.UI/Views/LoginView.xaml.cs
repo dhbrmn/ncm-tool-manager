@@ -29,5 +29,10 @@ namespace NcmToolManager.UI.Views
             if (e.LeftButton == MouseButtonState.Pressed)
                 DragMove();
         }
+
+        private void btnMinimize_Click( object sender, RoutedEventArgs e )
+        {
+            WindowState = WindowState.Minimized;
+        }
     }
 }
