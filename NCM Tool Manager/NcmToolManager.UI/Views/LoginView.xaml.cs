@@ -34,5 +34,10 @@ namespace NcmToolManager.UI.Views
         {
             WindowState = WindowState.Minimized;
         }
+
+        private void btnClose_Click( object sender, RoutedEventArgs e )
+        {
+            Application.Current.Shutdown();
+        }
     }
 }

@@ -13,6 +13,7 @@
         Background="Transparent"
         AllowsTransparency="True"
         MouseDown="Window_MouseDown">
+    
     <Border CornerRadius="32">
         <Border.Background>
             <ImageBrush ImageSource="/Images/back-image.jpg" Stretch="Fill" />
@@ -34,6 +35,7 @@
                 <GradientStop Color="#E71D36" Offset="1"/>
             </LinearGradientBrush>
         </Border.Background>
+        
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30"/>
@@ -44,7 +46,7 @@
                     <ColumnDefinition/>
                     <ColumnDefinition Width="25"/>
                     <ColumnDefinition Width="25"/>
-                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition Width="15"/>
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Text="LOG IN"
@@ -56,7 +58,6 @@
                            Margin="20,0,0,0" />
 
                 <Button x:Name="btnMinimize"
-                        Background="#2D3142"
                         BorderThickness="0"
                         Content="-"
                         Foreground="White"
@@ -65,19 +66,80 @@
                         Cursor="Hand"
                         Grid.Column="1"
                         Click="btnMinimize_Click">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#2D3142"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#2D31FF"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="23" Height="23"
+                                    CornerRadius="12.5"
+                                    Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
+
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
                 </Button>
 
                 <Button x:Name="btnClose"
-        Background="#2D3142"
-        BorderThickness="0"
-        Content="-"
-        Foreground="White"
-        FontSize="16"
-        FontFamily="Montserrat"
-        Cursor="Hand"
-        Grid.Column="1"
-        Click="btnClose_Click">
+                        BorderThickness="0"
+                        Content="X"
+                        Foreground="White"
+                        FontSize="12"
+                        FontFamily="Montserrat"
+                        Cursor="Hand"
+                        Grid.Column="2"
+                        Click="btnClose_Click">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#E71D36"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#FFAAAA"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="23" Height="23"
+                                    CornerRadius="12.5"
+                                    Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
+
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
                 </Button>
+                <StackPanel Width="350"
+                            Grid.Row="1"
+                            Grid.ColumnSpan="4"
+                            Orientation="Vertical"
+                            Margin="0,35,0,0">
+                    
+                    <Image Source="/Images/logo.png"
+                           Width="300"
+                           Height="150"/>
+                    
+                    <TextBlock Text="IZDAJA ORODIJ"
+                               Foreground="LightGray"
+                               FontSize="20"
+                               FontWeight="Medium"
+                               FontFamily="Montserrat"
+                               HorizontalAlignment="Center"/>
+
+                     
+
+                </StackPanel>
             </Grid>
         </Border>
     </Border>
