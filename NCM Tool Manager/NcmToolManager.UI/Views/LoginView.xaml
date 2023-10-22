@@ -14,28 +14,30 @@
         AllowsTransparency="True"
         MouseDown="Window_MouseDown">
     
+    
+
     <Border CornerRadius="32">
         <Border.Background>
             <ImageBrush ImageSource="/Images/back-image.jpg" Stretch="Fill" />
         </Border.Background>
-    <Border CornerRadius="30"
+        <Border CornerRadius="30"
             BorderThickness="4"
             Opacity="0.95">
-        <Border.BorderBrush>
-            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                <GradientStop Color="#939597" Offset="0.95"/>
-                <GradientStop Color="#2D3142" Offset="0"/>
-                <GradientStop Color="#E71D36" Offset="0.55"/>
-            </LinearGradientBrush>
-        </Border.BorderBrush>
-        <Border.Background>
-            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                <GradientStop Color="#939597" Offset="0"/>
-                <GradientStop Color="#2D3142" Offset="0.75"/>
-                <GradientStop Color="#E71D36" Offset="1"/>
-            </LinearGradientBrush>
-        </Border.Background>
-        
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#939597" Offset="0.95"/>
+                    <GradientStop Color="#2D3142" Offset="0"/>
+                    <GradientStop Color="#E71D36" Offset="0.55"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#939597" Offset="0"/>
+                    <GradientStop Color="#2D3142" Offset="0.75"/>
+                    <GradientStop Color="#E71D36" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30"/>
@@ -78,8 +80,8 @@
                     </Button.Style>
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
-                            <Border Width="23" Height="23"
-                                    CornerRadius="12.5"
+                            <Border Width="20" Height="20"
+                                    CornerRadius="10"
                                     Background="{TemplateBinding Background}">
                                 <ContentPresenter VerticalAlignment="Center"
                                                   HorizontalAlignment="Center"/>
@@ -110,8 +112,8 @@
                     </Button.Style>
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
-                            <Border Width="23" Height="23"
-                                    CornerRadius="12.5"
+                            <Border Width="20" Height="20"
+                                    CornerRadius="10"
                                     Background="{TemplateBinding Background}">
                                 <ContentPresenter VerticalAlignment="Center"
                                                   HorizontalAlignment="Center"/>
@@ -125,51 +127,152 @@
                             Grid.ColumnSpan="4"
                             Orientation="Vertical"
                             Margin="0,35,0,0">
-                    
+
                     <Image Source="/Images/logo.png"
                            Width="300"
                            Height="150"/>
-                    
+
                     <TextBlock Text="IZDAJA ORODIJ"
                                Foreground="LightGray"
-                               FontSize="20"
+                               FontSize="25"
                                FontWeight="Medium"
                                FontFamily="Montserrat"
                                HorizontalAlignment="Center"/>
 
-                    <TextBlock Text="Uporabniško ime:"
-                               Foreground="LightGray"
-                               FontSize="14"
-                               FontWeight="Medium"
-                               FontFamily="Montserrat"
-                               HorizontalAlignment="Left"
-                               Margin="0,50,0,0"/>
-
-                    <TextBox x:Name="txtUser"
+                    <TextBlock Text="Uporabniško ime"
                                Foreground="LightGray"
                                FontSize="16"
                                FontWeight="Medium"
                                FontFamily="Montserrat"
+                               HorizontalAlignment="Left"
+                               Margin="0,40,0,0"/>
+                    
+                        <TextBox x:Name="txtUser"
+                               Foreground="LightGray"
+                               FontSize="20"
+                               FontWeight="Medium"
+                               FontFamily="Montserrat"
                                Margin="0,5,0,0"
-                               CaretBrush="Red"
+                               CaretBrush="#4A040C"
                                BorderThickness="0,0,0,1"
-                               Padding="20,0,0,0">
-                        <TextBox.Background>
-                            <ImageBrush ImageSource="/Images/user-icon.png" Stretch="Uniform" AlignmentX="Left"/>
-                        </TextBox.Background>
+                               Padding="26,0,0,0">
+                            <TextBox.Background>
+                                <ImageBrush ImageSource="/Images/user-icon.png" Stretch="Uniform" AlignmentX="Left"/>
+                            </TextBox.Background>
                         <TextBox.Style>
-                            <Style TargetType="TextBox">
-                                <Setter Property="BorderBrush" Value="DarkGray"/>
+                        <Style TargetType="TextBox">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type TextBox}">
+                                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                                            <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsEnabled" Value="false">
+                                                <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                                            </Trigger>
+                                            <Trigger Property="IsMouseOver" Value="true">
+                                                <Setter Property="BorderBrush" TargetName="border" Value="#FFAAAA"/>
+                                            </Trigger>
+                                            <Trigger Property="IsFocused" Value="true">
+                                                    <Setter Property="BorderBrush" TargetName="border" Value="#E71D36"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                        </TextBox.Style>
+                    </TextBox>
+
+                        <TextBlock Text="Geslo"
+                                Foreground="LightGray"
+                                FontSize="16"
+                                FontWeight="Medium"
+                                FontFamily="Montserrat"
+                                HorizontalAlignment="Left"
+                                Margin="0,20,0,0"/>
+
+                    <PasswordBox x:Name="txtPassword"
+                                 Foreground="LightGray"
+                                 FontSize="20"
+                                 FontWeight="Medium"
+                                 FontFamily="Montserrat"
+                                 Margin="0,5,0,0"
+                                 CaretBrush="#4A040C"
+                                 BorderThickness="0,0,0,1"
+                                 Padding="26,0,0,0">
+                        <PasswordBox.Background>
+                            <ImageBrush ImageSource="/Images/key-icon.png"                               Stretch="Uniform" AlignmentX="Left"/>
+                        </PasswordBox.Background>
+                        <PasswordBox.Style>
+                            <Style TargetType="PasswordBox">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type PasswordBox}">
+                                            <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                                                <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsEnabled" Value="false">
+                                                    <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                                                </Trigger>
+                                                <Trigger Property="IsMouseOver" Value="true">
+                                                    <Setter Property="BorderBrush" TargetName="border" Value="#FFAAAA"/>
+                                                </Trigger>
+                                                <Trigger Property="IsFocused" Value="true">
+                                                    <Setter Property="BorderBrush" TargetName="border" Value="#E71D36"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </PasswordBox.Style>
+                    </PasswordBox>
+
+                    <Button x:Name="btnLogin"
+                        BorderThickness="0"
+                        Content="VPIS"
+                        Foreground="White"
+                        FontSize="12"
+                        FontFamily="Montserrat"
+                        Cursor="Hand"
+                        Grid.Column="2"
+                            Margin="0,20,0,0"
+                        Click="btnLogin_Click">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#E71D36"/>
                                 <Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="BorderBrush" Value="#E71D36"/>
+                                        <Setter Property="Background" Value="#FFAAAA"/>
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
-                        </TextBox.Style>
-                    </TextBox>
-                    
-                    
+                        </Button.Style>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="150" Height="25"
+                                    CornerRadius="12.5"
+                                    Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <TextBlock Text="Pozabljeno geslo?"
+                                Foreground="LightGray"
+                                FontSize="12"
+                                FontWeight="Medium"
+                                FontFamily="Montserrat"
+                                HorizontalAlignment="Center"
+                                Margin="0,10,0,0"
+                               Cursor="Hand"/>
+
+
 
                 </StackPanel>
             </Grid>
