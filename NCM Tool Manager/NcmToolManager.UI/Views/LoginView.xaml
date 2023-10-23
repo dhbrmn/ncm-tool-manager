@@ -25,16 +25,17 @@
             Opacity="0.95">
             <Border.BorderBrush>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#939597" Offset="0.95"/>
-                    <GradientStop Color="#2D3142" Offset="0"/>
-                    <GradientStop Color="#E71D36" Offset="0.55"/>
+                    <GradientStop Color="{StaticResource color19}" Offset="0.95"/>
+                    <GradientStop Color="{StaticResource color10}" Offset="0"/>
+                    <GradientStop Color="{StaticResource color16}" Offset="0.35"/>
+                    <GradientStop Color="{StaticResource color12}" Offset="0.75"/>
                 </LinearGradientBrush>
             </Border.BorderBrush>
             <Border.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#939597" Offset="0"/>
-                    <GradientStop Color="#2D3142" Offset="0.75"/>
-                    <GradientStop Color="#E71D36" Offset="1"/>
+                    <GradientStop Color="{StaticResource color19}" Offset="0"/>
+                    <GradientStop Color="{StaticResource color10}" Offset="0.75"/>
+                    <GradientStop Color="{StaticResource color16}" Offset="1"/>
                 </LinearGradientBrush>
             </Border.Background>
 
@@ -52,7 +53,7 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Text="LOG IN"
-                           Foreground="Red"
+                           Foreground="{StaticResource red2}"
                            FontSize="10"
                            FontFamily="Montserrat"
                            Grid.Column="0"
@@ -62,7 +63,7 @@
                 <Button x:Name="btnMinimize"
                         BorderThickness="0"
                         Content="-"
-                        Foreground="White"
+                        Foreground="{StaticResource gray1}"
                         FontSize="16"
                         FontFamily="Montserrat"
                         Cursor="Hand"
@@ -70,10 +71,10 @@
                         Click="btnMinimize_Click">
                     <Button.Style>
                         <Style TargetType="Button">
-                            <Setter Property="Background" Value="#2D3142"/>
+                            <Setter Property="Background" Value="{StaticResource dark2}"/>
                             <Style.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#2D31FF"/>
+                                    <Setter Property="Background" Value="{StaticResource blue2}"/>
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
@@ -94,7 +95,7 @@
                 <Button x:Name="btnClose"
                         BorderThickness="0"
                         Content="X"
-                        Foreground="White"
+                        Foreground="{StaticResource gray1}"
                         FontSize="12"
                         FontFamily="Montserrat"
                         Cursor="Hand"
@@ -102,10 +103,10 @@
                         Click="btnClose_Click">
                     <Button.Style>
                         <Style TargetType="Button">
-                            <Setter Property="Background" Value="#E71D36"/>
+                            <Setter Property="Background" Value="{StaticResource red2}"/>
                             <Style.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#FFAAAA"/>
+                                    <Setter Property="Background" Value="{StaticResource red1}"/>
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
@@ -133,14 +134,14 @@
                            Height="150"/>
 
                     <TextBlock Text="IZDAJA ORODIJ"
-                               Foreground="LightGray"
+                               Foreground="{StaticResource gray1}"
                                FontSize="25"
                                FontWeight="Medium"
                                FontFamily="Montserrat"
                                HorizontalAlignment="Center"/>
 
                     <TextBlock Text="Uporabniško ime"
-                               Foreground="LightGray"
+                               Foreground="{StaticResource gray1}"
                                FontSize="16"
                                FontWeight="Medium"
                                FontFamily="Montserrat"
@@ -148,12 +149,12 @@
                                Margin="0,40,0,0"/>
                     
                         <TextBox x:Name="txtUser"
-                               Foreground="LightGray"
+                               Foreground="{StaticResource gray1}"
                                FontSize="20"
                                FontWeight="Medium"
                                FontFamily="Montserrat"
                                Margin="0,5,0,0"
-                               CaretBrush="#4A040C"
+                               CaretBrush="{StaticResource gray3}"
                                BorderThickness="0,0,0,1"
                                Padding="26,0,0,0">
                             <TextBox.Background>
@@ -172,10 +173,10 @@
                                                 <Setter Property="Opacity" TargetName="border" Value="0.56"/>
                                             </Trigger>
                                             <Trigger Property="IsMouseOver" Value="true">
-                                                <Setter Property="BorderBrush" TargetName="border" Value="#FFAAAA"/>
+                                                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource orange2}"/>
                                             </Trigger>
                                             <Trigger Property="IsFocused" Value="true">
-                                                    <Setter Property="BorderBrush" TargetName="border" Value="#E71D36"/>
+                                                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource red2}"/>
                                             </Trigger>
                                         </ControlTemplate.Triggers>
                                     </ControlTemplate>
@@ -186,7 +187,7 @@
                     </TextBox>
 
                         <TextBlock Text="Geslo"
-                                Foreground="LightGray"
+                                Foreground="{StaticResource gray1}"
                                 FontSize="16"
                                 FontWeight="Medium"
                                 FontFamily="Montserrat"
@@ -194,12 +195,12 @@
                                 Margin="0,20,0,0"/>
 
                     <PasswordBox x:Name="txtPassword"
-                                 Foreground="LightGray"
+                                 Foreground="{StaticResource gray1}"
                                  FontSize="20"
                                  FontWeight="Medium"
                                  FontFamily="Montserrat"
                                  Margin="0,5,0,0"
-                                 CaretBrush="#4A040C"
+                                 CaretBrush="{StaticResource gray3}"
                                  BorderThickness="0,0,0,1"
                                  Padding="26,0,0,0">
                         <PasswordBox.Background>
@@ -218,10 +219,10 @@
                                                     <Setter Property="Opacity" TargetName="border" Value="0.56"/>
                                                 </Trigger>
                                                 <Trigger Property="IsMouseOver" Value="true">
-                                                    <Setter Property="BorderBrush" TargetName="border" Value="#FFAAAA"/>
+                                                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource orange2}"/>
                                                 </Trigger>
                                                 <Trigger Property="IsFocused" Value="true">
-                                                    <Setter Property="BorderBrush" TargetName="border" Value="#E71D36"/>
+                                                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource red2}"/>
                                                 </Trigger>
                                             </ControlTemplate.Triggers>
                                         </ControlTemplate>
@@ -234,7 +235,7 @@
                     <Button x:Name="btnLogin"
                         BorderThickness="0"
                         Content="VPIS"
-                        Foreground="White"
+                        Foreground="{StaticResource gray1}"
                         FontSize="12"
                         FontFamily="Montserrat"
                         Cursor="Hand"
@@ -243,10 +244,10 @@
                         Click="btnLogin_Click">
                         <Button.Style>
                             <Style TargetType="Button">
-                                <Setter Property="Background" Value="#E71D36"/>
+                                <Setter Property="Background" Value="{StaticResource red2}"/>
                                 <Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="#FFAAAA"/>
+                                        <Setter Property="Background" Value="{StaticResource red1}"/>
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
@@ -264,7 +265,7 @@
                     </Button>
 
                     <TextBlock Text="Pozabljeno geslo?"
-                                Foreground="LightGray"
+                                Foreground="{StaticResource gray3}"
                                 FontSize="12"
                                 FontWeight="Medium"
                                 FontFamily="Montserrat"
