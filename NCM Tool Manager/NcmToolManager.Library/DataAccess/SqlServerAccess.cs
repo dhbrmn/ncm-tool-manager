@@ -5,6 +5,8 @@ using NcmToolManager.Library.Functions;
 using System.Security.Cryptography.Xml;
 using System;
 using System.Xml.Linq;
+using System.Linq;
+using System.Configuration;
 
 namespace NcmToolManager.Library.DataAccess
 {
@@ -76,7 +78,6 @@ namespace NcmToolManager.Library.DataAccess
                     connection.Execute("USE NcmToolManagerDb; INSERT INTO Logins (UserName, Password, Salt, Role) VALUES (@UserName, @Password, @Salt, @Role);", input);
                 }
         }
-
         public static LoginModel ReadLoginFromDb( LoginModel credentials )
         {
             if (string.IsNullOrWhiteSpace(credentials.UserName))

@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:views="clr-namespace:NcmToolManager.UI.Views"
+        xmlns:viewModel="clr-namespace:NcmToolManager.UI.ViewModels" xmlns:customcontrols="clr-namespace:NcmToolManager.UI.CustomControls"
         mc:Ignorable="d"
         Title="LoginView" Height="550" Width="800"
         
@@ -13,8 +14,18 @@
         Background="Transparent"
         AllowsTransparency="True"
         MouseDown="Window_MouseDown">
-    
-    
+
+    <Window.DataContext>
+        <viewModel:LoginViewModel/>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
+    </Window.Resources>
+
+    <Window.Visibility>
+        <Binding Path="IsViewVisible" Mode="TwoWay" Converter="{StaticResource BooleanToVisibility}"/>
+    </Window.Visibility>
 
     <Border CornerRadius="32">
         <Border.Background>
@@ -149,6 +160,7 @@
                                Margin="0,40,0,0"/>
                     
                         <TextBox x:Name="txtUser"
+                                 Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
                                Foreground="{StaticResource gray1}"
                                FontSize="20"
                                FontWeight="Medium"
@@ -194,45 +206,23 @@
                                 HorizontalAlignment="Left"
                                 Margin="0,20,0,0"/>
 
-                    <PasswordBox x:Name="txtPassword"
-                                 Foreground="{StaticResource gray1}"
-                                 FontSize="20"
-                                 FontWeight="Medium"
-                                 FontFamily="Montserrat"
-                                 Margin="0,5,0,0"
-                                 CaretBrush="{StaticResource gray3}"
-                                 BorderThickness="0,0,0,1"
-                                 Padding="26,0,0,0">
-                        <PasswordBox.Background>
-                            <ImageBrush ImageSource="/Images/key-icon.png"                               Stretch="Uniform" AlignmentX="Left"/>
-                        </PasswordBox.Background>
-                        <PasswordBox.Style>
-                            <Style TargetType="PasswordBox">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="{x:Type PasswordBox}">
-                                            <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
-                                                <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
-                                            </Border>
-                                            <ControlTemplate.Triggers>
-                                                <Trigger Property="IsEnabled" Value="false">
-                                                    <Setter Property="Opacity" TargetName="border" Value="0.56"/>
-                                                </Trigger>
-                                                <Trigger Property="IsMouseOver" Value="true">
-                                                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource orange2}"/>
-                                                </Trigger>
-                                                <Trigger Property="IsFocused" Value="true">
-                                                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource red2}"/>
-                                                </Trigger>
-                                            </ControlTemplate.Triggers>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </PasswordBox.Style>
-                    </PasswordBox>
+                    <customcontrols:BindablePasswordBox Password="{Binding Password, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                                        Height="28"
+                                                        Margin="0,5,0,0">
+
+                    </customcontrols:BindablePasswordBox>
+
+                    <TextBlock Text="{Binding ErrorMessage}"
+                               Foreground="{StaticResource red2}"
+                               FontSize="14"
+                               FontWeight="Medium"
+                               FontFamily="Montserrat"
+                               HorizontalAlignment="Left"
+                               Margin="0,10,0,0"
+                               TextWrapping="Wrap"/>
 
                     <Button x:Name="btnLogin"
+                            Command="{Binding LoginCommand}"
                         BorderThickness="0"
                         Content="VPIS"
                         Foreground="{StaticResource gray1}"
@@ -240,8 +230,7 @@
                         FontFamily="Montserrat"
                         Cursor="Hand"
                         Grid.Column="2"
-                            Margin="0,20,0,0"
-                        Click="btnLogin_Click">
+                            Margin="0,20,0,0">
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Setter Property="Background" Value="{StaticResource red2}"/>
