@@ -93,7 +93,7 @@ namespace NcmToolManager.UI.ViewModels
                 }
             else
                 {
-                    ErrorMessage = "* Invalid username or password";
+                    ErrorMessage = "* Napačno uporabniško ime ali geslo";
                 }
         }
         private void ExecuteRecoverPasswordCommand( string username, string email )
