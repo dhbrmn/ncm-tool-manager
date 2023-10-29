@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NcmToolManager.UI.Views"
         xmlns:viewModel="clr-namespace:NcmToolManager.UI.ViewModels"
+        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
         mc:Ignorable="d"
         Title="MainView" Height="700" Width="1300"
         WindowStartupLocation="CenterScreen"
@@ -20,7 +21,7 @@
         <Border.BorderBrush>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                 <GradientStop Color="{StaticResource color19}" Offset="0.95"/>
-                <GradientStop Color="{StaticResource color10}" Offset="0"/>
+                <GradientStop Color="{StaticResource color20}" Offset="0"/>
                 <GradientStop Color="{StaticResource color16}" Offset="0.35"/>
                 <GradientStop Color="{StaticResource color12}" Offset="0.75"/>
             </LinearGradientBrush>
@@ -43,6 +44,61 @@
                         <GradientStop Color="{StaticResource color20}" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
+
+                <StackPanel>
+                    <!--Logo-->
+                    <StackPanel Orientation="Vertical"
+                                Height="120"
+                                Margin="15,25,0,40">
+                        <Image Source="/Images/logo.png" Height="80"/>
+                        <TextBlock Text="IZDAJA ORODIJ"
+                                   Foreground="{StaticResource gray3}"
+                                   FontSize="22"
+                                   FontWeight="Light"
+                                   FontFamily="Montserrat"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,12,0,0"/>
+                    </StackPanel>
+                    
+                    <!--Menu Buttons-->
+                    <RadioButton Style="{StaticResource menuButton}"
+                                 Tag="{StaticResource yellow1}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="Home" Style="{StaticResource menuButtonIcon}" />
+                            <TextBlock Text="Predogled" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource menuButton}"
+                                 Tag="{StaticResource yellow2}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="HelmetSafety" Style="{StaticResource menuButtonIcon}" />
+                            <TextBlock Text="Delavci" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource menuButton}"
+                                 Tag="{StaticResource orange1}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="Toolbox" Style="{StaticResource menuButtonIcon}" />
+                            <TextBlock Text="Orodja" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource menuButton}"
+                                 Tag="{StaticResource orange2}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="PersonWalkingLuggage" Style="{StaticResource menuButtonIcon}" />
+                            <TextBlock Text="Prodajalci" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource menuButton}"
+                                 Tag="{StaticResource red1}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="Tools" Style="{StaticResource menuButtonIcon}" />
+                            <TextBlock Text="Izdaja orodja" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </RadioButton>
+
+                </StackPanel>
+                
             </Border>
                 
              <!--Content Section-->

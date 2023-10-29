@@ -4,8 +4,14 @@
              xmlns:local="clr-namespace:NcmToolManager.UI"
              Startup="ApplicationStart">
     <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/UIColors.xaml"/>
+                <ResourceDictionary Source="/Styles/ButtonStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
 
-        <ResourceDictionary Source="/Styles/UIColors.xaml"/>
+
 
     </Application.Resources>
 </Application>
