@@ -7,6 +7,7 @@ using System;
 using System.Xml.Linq;
 using System.Linq;
 using System.Configuration;
+using System.Printing;
 
 namespace NcmToolManager.Library.DataAccess
 {
@@ -77,6 +78,27 @@ namespace NcmToolManager.Library.DataAccess
 
                     connection.Execute("USE NcmToolManagerDb; INSERT INTO Logins (UserName, Password, Salt, Role) VALUES (@UserName, @Password, @Salt, @Role);", input);
                 }
+        }
+        public static UserModel ReadUserByUsername( string username )
+        {
+            if (string.IsNullOrWhiteSpace(username))
+                throw new NullReferenceException("No username to search the databse with.");
+
+            var loginSearch = new DynamicParameters();
+            loginSearch.Add("UserName", username);
+            LoginModel loginModelPopulate = new();
+            using (var connection = new SqlConnection(GlobalConfig.SqlCnnString()))
+            {
+                loginModelPopulate = connection.QuerySingle<LoginModel>("SELECT * FROM Logins WHERE UserName = @UserName", loginSearch);
+            }
+            var userSearch = new DynamicParameters();
+            userSearch.Add("LoginId", loginModelPopulate.Id);
+            UserModel userModelPopulate = new();
+            using (var connection = new SqlConnection(GlobalConfig.SqlCnnString()))
+            {
+                userModelPopulate = connection.QuerySingle<UserModel>("SELECT * FROM Users WHERE LoginId = @LoginId", userSearch);
+            }
+            return userModelPopulate;
         }
         public static LoginModel ReadLoginFromDb( LoginModel credentials )
         {
