@@ -16,6 +16,13 @@
     <Window.DataContext>
         <viewModel:MainViewModel/>
     </Window.DataContext>
+
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewModel:PredogledViewModel}">
+            <local:PredogledView/>
+        </DataTemplate>
+    </Window.Resources>
+    
     <Border CornerRadius="10"
             BorderThickness="2">
         <Border.BorderBrush>
@@ -62,7 +69,9 @@
                     
                     <!--Menu Buttons-->
                     <RadioButton Style="{StaticResource menuButton}"
-                                 Tag="{StaticResource yellow1}">
+                                 Tag="{StaticResource yellow1}"
+                                 Command="{Binding ShowPredogledViewCommand}"
+                                 IsChecked="True">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Home" Style="{StaticResource menuButtonIcon}" />
                             <TextBlock Text="Predogled" Style="{StaticResource menuButtonText}"/>
@@ -111,6 +120,104 @@
                         <GradientStop Color="{StaticResource color20}" Offset="0"/>
                     </LinearGradientBrush>
                 </Border.Background>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <!--ControlBar-->
+                        <RowDefinition Height="25"/>
+                        <!--Header-->
+                        <RowDefinition Height="35"/>
+                        <!--Content-->
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!--ControlBar-->
+                    <StackPanel x:Name="controlBar"
+                                Grid.Row="0"
+                                Orientation="Horizontal"
+                                FlowDirection="RightToLeft"
+                                Background="Transparent"
+                                Margin="0,0,5,0"
+                                MouseLeftButtonDown="controlBar_MouseLeftButtonDown"
+                                MouseEnter="controlBar_MouseEnter">
+                        <Button x:Name="btnClose"
+                                Style="{StaticResource controlButton}"
+                                Tag="{StaticResource red2}"
+                                Click="btnClose_Click">
+                            <fa:IconImage Icon="Xmark" Style="{StaticResource controlButtonIcon}" />
+                        </Button>
+                        <Button x:Name="btnMax"
+                                Style="{StaticResource controlButton}"
+                                Tag="{StaticResource blue2}"
+                                Click="btnMax_Click">
+                            <fa:IconImage Icon="Square" Style="{StaticResource controlButtonIcon}" />
+                        </Button>
+                        <Button x:Name="btnMin"
+                                Style="{StaticResource controlButton}"
+                                Tag="{StaticResource blue2}"
+                                Click="btnMin_Click">
+                            <fa:IconImage Icon="WindowMinimize" Width="12" Style="{StaticResource controlButtonIcon}" />
+                        </Button>
+                    </StackPanel>
+                    
+                    <!--Header-->
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0"
+                                    Orientation="Horizontal"
+                                    VerticalAlignment="Center">
+                            <fa:IconImage Icon="{Binding Icon}"
+                                          Height="20"
+                                          Width="20"
+                                          Foreground="{StaticResource yellow1}"
+                                          Margin="35,0,10,0"/>
+                            <TextBlock Text="{Binding Caption}"
+                                       Foreground="{StaticResource gray1}"
+                                       FontSize="16"
+                                       FontFamily="Montserrat"
+                                       FontWeight="Medium"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                        
+                        <!--Uporabnik-->
+
+                        <StackPanel Grid.Column="1"
+                                    Orientation="Horizontal"
+                                    FlowDirection="RightToLeft"
+                                    VerticalAlignment="Center"
+                                    Margin="0,0,10,0">
+                            
+                            <Button Style="{StaticResource userBarButton}"
+                                    Tag="{StaticResource green2}">
+                                <fa:IconImage Icon="AngleDown"
+                                              Style="{StaticResource userBarlButtonIcon}"
+                                              Height="12"/>
+                            </Button>
+                            
+                            <TextBlock Text="{Binding User.DisplayName}"
+                                       Foreground="{StaticResource gray1}"
+                                       FontFamily="Montserrat"
+                                       FontSize="16"
+                                       FontWeight="Light"
+                                       VerticalAlignment="Center"
+                                       Margin="5,0,10,0"/>
+
+                            <fa:IconBlock Icon="User" Foreground="{StaticResource gray1}"/>
+                        </StackPanel>
+                        
+                    </Grid>
+                    
+                    <!--Content-->
+                    <ContentControl Content="{Binding CurrentChildView}"
+                                    Grid.Row="2"
+                                    Margin="25"/>
+
+                </Grid>
+                
             </Border>
 
         </Grid>
