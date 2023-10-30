@@ -80,7 +80,7 @@ namespace NcmToolManager.UI.ViewModels
             //Default view
             ExecuteShowPredogledViewCommand(null);
 
-            LoadCurrentUserData();
+            //LoadCurrentUserData();
         }
 
 
@@ -89,7 +89,7 @@ namespace NcmToolManager.UI.ViewModels
         {
             CurrentChildView= new PredogledViewModel();
             Caption = "Predogled";
-            Icon = IconChar.UserGroup;
+            Icon = IconChar.Home;
         }
 
         private void LoadCurrentUserData()

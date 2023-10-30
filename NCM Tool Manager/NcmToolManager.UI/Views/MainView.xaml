@@ -56,7 +56,7 @@
                     <!--Logo-->
                     <StackPanel Orientation="Vertical"
                                 Height="120"
-                                Margin="15,25,0,40">
+                                Margin="15,25,15,40">
                         <Image Source="/Images/logo.png" Height="80"/>
                         <TextBlock Text="IZDAJA ORODIJ"
                                    Foreground="{StaticResource gray3}"
