@@ -56,6 +56,29 @@
     <SolidColorBrush x:Key="gray3" Color="#bdc3c7"/>
     <SolidColorBrush x:Key="gray4" Color="#7f8c8d"/>
 
+    <!--Gradient Colors-->
+    <Color x:Key="gradientColor1">#850101</Color>
+    <Color x:Key="gradientColor2">#791616</Color>
+    <Color x:Key="gradientColor3">#6D2B2C</Color>
+    <Color x:Key="gradientColor4">#614041</Color>
+    <Color x:Key="gradientColor5">#555556</Color>
+    <Color x:Key="gradientColor6">#606163</Color>
+
+    <!--Text Color-->
+    <SolidColorBrush x:Key="textColor" Color="#ecf0f1"/>
+    
+    <!--Border Color-->
+    <Color x:Key="borderColor">#4A4A4A</Color>
+
+    <!--Button Backgrounds-->
+    <SolidColorBrush x:Key="buttonColorRed" Color="#CE2029"/>
+    <SolidColorBrush x:Key="buttonColorGray" Color="#2F2F2F"/>
+    <SolidColorBrush x:Key="buttonColorRedMouseOver" Color="#791616"/>
+    <SolidColorBrush x:Key="buttonColorGrayMouseOver" Color="#8A8A8A"/>
+    
+    <!--Mouse Trigers-->
+    <SolidColorBrush x:Key="focusedTrigger" Color="#CE2029"/>
+    <SolidColorBrush x:Key="mouseOverTrigger" Color="#791616"/>
 
 
 </ResourceDictionary>
