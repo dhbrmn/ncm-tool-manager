@@ -80,7 +80,7 @@ namespace NcmToolManager.UI.ViewModels
             //Default view
             ExecuteShowPredogledViewCommand(null);
 
-            //LoadCurrentUserData();
+            LoadCurrentUserData();
         }
 
 
