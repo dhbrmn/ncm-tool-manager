@@ -60,8 +60,6 @@ namespace NcmToolManager.UI.ViewModels
         //-> Commands
         public ICommand LoginCommand { get; }
         public ICommand RecoverPasswordCommand { get; }
-        public ICommand ShowPasswordCommand { get; }
-        public ICommand RememberPasswordCommand { get; }
 
         //Constructors
         public LoginViewModel()
@@ -96,6 +94,8 @@ namespace NcmToolManager.UI.ViewModels
                     ErrorMessage = "* Napačno uporabniško ime ali geslo";
                 }
         }
+
+        //TODO - Implement password recovery
         private void ExecuteRecoverPasswordCommand( string username, string email )
         {
             throw new NotImplementedException();

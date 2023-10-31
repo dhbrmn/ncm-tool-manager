@@ -63,6 +63,9 @@
     <Color x:Key="gradientColor4">#614041</Color>
     <Color x:Key="gradientColor5">#555556</Color>
     <Color x:Key="gradientColor6">#606163</Color>
+    
+    <!--Theme Color Brushes-->
+    <SolidColorBrush x:Key="gradientColor5Brush" Color="#555556"/>
 
     <!--Text Color-->
     <SolidColorBrush x:Key="textColor" Color="#ecf0f1"/>
@@ -76,7 +79,9 @@
     <SolidColorBrush x:Key="buttonColorGray" Color="#2F2F2F"/>
     <SolidColorBrush x:Key="buttonColorRedMouseOver" Color="#791616"/>
     <SolidColorBrush x:Key="buttonColorGrayMouseOver" Color="#8A8A8A"/>
-    
+    <SolidColorBrush x:Key="buttonColorGrayActive" Color="#4A4A4A"/>
+
+
     <!--Mouse Trigers-->
     <SolidColorBrush x:Key="focusedTrigger" Color="#CE2029"/>
     <SolidColorBrush x:Key="mouseOverTrigger" Color="#791616"/>

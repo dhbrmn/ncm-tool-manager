@@ -26,12 +26,7 @@
     <Border CornerRadius="10"
             BorderThickness="2">
         <Border.BorderBrush>
-            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                <GradientStop Color="{StaticResource color19}" Offset="0.95"/>
-                <GradientStop Color="{StaticResource color20}" Offset="0"/>
-                <GradientStop Color="{StaticResource color16}" Offset="0.35"/>
-                <GradientStop Color="{StaticResource color12}" Offset="0.75"/>
-            </LinearGradientBrush>
+            <SolidColorBrush Color="{StaticResource borderColor}"/>
         </Border.BorderBrush>
 
         <Grid>
@@ -44,12 +39,13 @@
             
             <!--Navi menu-->
             <Border CornerRadius="8,0,0,8"
-                    Grid.Column="0">
+                    Grid.Column="0"
+                    BorderThickness="0,0,2,0">
+                <Border.BorderBrush>
+                    <SolidColorBrush Color="{StaticResource borderColor}"/>
+                </Border.BorderBrush>
                 <Border.Background>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                        <GradientStop Color="{StaticResource color9}" Offset="0.7"/>
-                        <GradientStop Color="{StaticResource color20}" Offset="1"/>
-                    </LinearGradientBrush>
+                    <SolidColorBrush Color="{StaticResource gradientColor5}"/>
                 </Border.Background>
 
                 <StackPanel>
@@ -59,7 +55,7 @@
                                 Margin="15,25,15,40">
                         <Image Source="/Images/logo.png" Height="80"/>
                         <TextBlock Text="IZDAJA ORODIJ"
-                                   Foreground="{StaticResource gray3}"
+                                   Foreground="{StaticResource textColor}"
                                    FontSize="22"
                                    FontWeight="Light"
                                    FontFamily="Montserrat"
@@ -69,7 +65,7 @@
                     
                     <!--Menu Buttons-->
                     <RadioButton Style="{StaticResource menuButton}"
-                                 Tag="{StaticResource yellow1}"
+                                 Tag="{StaticResource buttonColorRed}"
                                  Command="{Binding ShowPredogledViewCommand}"
                                  IsChecked="True">
                         <StackPanel Orientation="Horizontal">
@@ -78,28 +74,28 @@
                         </StackPanel>
                     </RadioButton>
                     <RadioButton Style="{StaticResource menuButton}"
-                                 Tag="{StaticResource yellow2}">
+                                 Tag="{StaticResource buttonColorRed}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="HelmetSafety" Style="{StaticResource menuButtonIcon}" />
                             <TextBlock Text="Delavci" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
                     <RadioButton Style="{StaticResource menuButton}"
-                                 Tag="{StaticResource orange1}">
+                                 Tag="{StaticResource buttonColorRed}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Toolbox" Style="{StaticResource menuButtonIcon}" />
                             <TextBlock Text="Orodja" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
                     <RadioButton Style="{StaticResource menuButton}"
-                                 Tag="{StaticResource orange2}">
+                                 Tag="{StaticResource buttonColorRed}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="PersonWalkingLuggage" Style="{StaticResource menuButtonIcon}" />
                             <TextBlock Text="Prodajalci" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
                     <RadioButton Style="{StaticResource menuButton}"
-                                 Tag="{StaticResource red1}">
+                                 Tag="{StaticResource buttonColorRed}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Tools" Style="{StaticResource menuButtonIcon}" />
                             <TextBlock Text="Izdaja orodja" Style="{StaticResource menuButtonText}"/>
@@ -114,10 +110,10 @@
             <Border CornerRadius="0,8,8,0"
                     Grid.Column="1">
                 <Border.Background>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                        <GradientStop Color="{StaticResource color9}" Offset="0.21"/>
-                        <GradientStop Color="{StaticResource color10}" Offset="0.7"/>
-                        <GradientStop Color="{StaticResource color20}" Offset="0"/>
+                    <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                        <GradientStop Color="{StaticResource gradientColor6}" Offset="0.3"/>
+                        <GradientStop Color="{StaticResource gradientColor5}" Offset="0.65"/>
+                        <GradientStop Color="{StaticResource gradientColor3}" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
 
@@ -173,10 +169,10 @@
                             <fa:IconImage Icon="{Binding Icon}"
                                           Height="20"
                                           Width="20"
-                                          Foreground="{StaticResource yellow1}"
+                                          Foreground="{StaticResource buttonColorRed}"
                                           Margin="35,0,10,0"/>
                             <TextBlock Text="{Binding Caption}"
-                                       Foreground="{StaticResource gray1}"
+                                       Foreground="{StaticResource textColor}"
                                        FontSize="16"
                                        FontFamily="Montserrat"
                                        FontWeight="Medium"
@@ -192,21 +188,21 @@
                                     Margin="0,0,10,0">
                             
                             <Button Style="{StaticResource userBarButton}"
-                                    Tag="{StaticResource green2}">
+                                    Tag="{StaticResource buttonColorGrayMouseOver}">
                                 <fa:IconImage Icon="AngleDown"
                                               Style="{StaticResource userBarlButtonIcon}"
                                               Height="12"/>
                             </Button>
                             
                             <TextBlock Text="{Binding User.DisplayName}"
-                                       Foreground="{StaticResource gray1}"
+                                       Foreground="{StaticResource textColor}"
                                        FontFamily="Montserrat"
                                        FontSize="16"
                                        FontWeight="Light"
                                        VerticalAlignment="Center"
                                        Margin="5,0,10,0"/>
 
-                            <fa:IconBlock Icon="User" Foreground="{StaticResource gray1}"/>
+                            <fa:IconBlock Icon="User" Foreground="{StaticResource textColor}" IconFont="Solid"/>
                         </StackPanel>
                         
                     </Grid>
