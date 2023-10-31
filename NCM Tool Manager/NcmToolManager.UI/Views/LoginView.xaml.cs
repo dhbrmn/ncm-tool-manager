@@ -40,5 +40,9 @@ namespace NcmToolManager.UI.Views
             Application.Current.Shutdown();
         }
 
+        private void forgotPasswordButton_Click( object sender, RoutedEventArgs e )
+        {
+            MessageBox.Show("Prosimo obrnite se na skrbnika aplikacije.");
+        }
     }
 }

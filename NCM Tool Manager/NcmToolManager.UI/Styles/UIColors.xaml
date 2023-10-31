@@ -66,7 +66,8 @@
 
     <!--Text Color-->
     <SolidColorBrush x:Key="textColor" Color="#ecf0f1"/>
-    
+    <SolidColorBrush x:Key="errorText" Color="#ff0000"/>
+
     <!--Border Color-->
     <Color x:Key="borderColor">#4A4A4A</Color>
 

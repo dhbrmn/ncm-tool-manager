@@ -28,6 +28,8 @@
         <Binding Path="IsViewVisible" Mode="TwoWay" Converter="{StaticResource BooleanToVisibility}"/>
     </Window.Visibility>
     
+    
+    <!--Border design-->
     <Border CornerRadius="11">
         <Border.Background>
             <ImageBrush ImageSource="/Images/back-image.jpg" Stretch="Fill" />
@@ -48,6 +50,8 @@
                     <GradientStop Color="{StaticResource gradientColor6}" Offset="1"/>
                 </LinearGradientBrush>
             </Border.Background>
+            
+            <!--Main Grid Definition-->
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30"/>
@@ -60,6 +64,7 @@
                     <ColumnDefinition Width="5"/>
                 </Grid.ColumnDefinitions>
                 
+                <!--Minimize Button-->
                 <Button x:Name="btnMinimize"
                         BorderThickness="0"
                         Foreground="{StaticResource textColor}"
@@ -88,6 +93,8 @@
                     </Button.Template>
                     <fa:IconImage Icon="WindowMinimize" Width="8" Foreground="{StaticResource textColor}"/>
                 </Button>
+                
+                <!--Close Button-->
                 <Button x:Name="btnClose"
                         BorderThickness="0"
                         Foreground="{StaticResource textColor}"
@@ -116,30 +123,45 @@
                     </Button.Template>
                     <fa:IconImage Icon="Xmark" Width="8" Foreground="{StaticResource textColor}"/>
                 </Button>
+                
+                <!--Main Content Stack-->
                 <StackPanel Width="350"
                             Grid.Row="1"
                             Grid.ColumnSpan="4"
                             Orientation="Vertical"
                             Margin="0,35,0,0">
+                    
+                    <!--Company Logo-->
                     <Image Source="/Images/logo.png"
                            Width="300"
                            Height="150"/>
+                    
+                    <!--Program name-->
                     <TextBlock Text="IZDAJA ORODIJ"
                                Foreground="{StaticResource textColor}"
                                FontSize="25"
                                FontWeight="Medium"
                                FontFamily="Montserrat"
                                HorizontalAlignment="Center"/>
+                    
+                    <!--Username text-->
                     <TextBlock Text="Uporabniško ime"
                                Foreground="{StaticResource textColor}"
                                FontSize="16"
                                FontWeight="Medium"
                                FontFamily="Montserrat"
-                               HorizontalAlignment="Left"
+                               HorizontalAlignment="Center"
                                Margin="0,40,0,0"/>
+                    
+                    <!--Username Icon and TextBox stack-->
                     <StackPanel Orientation="Horizontal"
-                                Margin="0,5,0,0">
+                                Margin="0,5,0,0"
+                                HorizontalAlignment="Center"
+                                Width="250">
+                        
+                        <!--User Icon-->
                         <fa:IconImage Icon="User" Width="20" Foreground="{StaticResource textColor}" IconFont="Solid"/>
+                        <!--Username input TextBox-->
                         <TextBox x:Name="txtUser"
                                  Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
                                Foreground="{StaticResource textColor}"
@@ -150,55 +172,57 @@
                                BorderThickness="0,0,0,1"
                                  Margin="10,0,0,0"
                                Height="20"
-                               Width="330"
+                               Width="215"
                                  Background="Transparent">
-                            <TextBox.Style>
-                                <Style TargetType="TextBox">
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="{x:Type TextBox}">
-                                                <Border x:Name="border"                                                          BorderBrush="{TemplateBinding BorderBrush}"
-                                                        BorderThickness="{TemplateBinding BorderThickness}">
-                                                    <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
-                                                </Border>
-                                                <ControlTemplate.Triggers>
-                                                    <Trigger Property="IsMouseOver" Value="true">
-                                                        <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource mouseOverTrigger}"/>
-                                                    </Trigger>
-                                                    <Trigger Property="IsFocused" Value="true">
-                                                        <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource focusedTrigger}"/>
-                                                    </Trigger>
-                                                </ControlTemplate.Triggers>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </TextBox.Style>
+                            <TextBox.Template>
+                                <ControlTemplate TargetType="TextBox">
+                                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                                        <ScrollViewer Margin="0"
+                        x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="true">
+                                            <Setter Property="BorderBrush" Value="{StaticResource mouseOverTrigger}"/>
+                                        </Trigger>
+                                        <Trigger Property="IsFocused" Value="true">
+                                            <Setter Property="BorderBrush" Value="{StaticResource focusedTrigger}"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </TextBox.Template>
                         </TextBox>
                     </StackPanel>
+                    
+                    <!--Password text-->
                     <TextBlock Text="Geslo"
-                                Foreground="{StaticResource gray1}"
+                                Foreground="{StaticResource textColor}"
                                 FontSize="16"
                                 FontWeight="Medium"
                                 FontFamily="Montserrat"
-                                HorizontalAlignment="Left"
+                                HorizontalAlignment="Center"
                                 Margin="0,20,0,0"/>
+                    <!--Custom PasswordBox - See BindablePasswordBox.xaml-->
                     <customcontrols:BindablePasswordBox Password="{Binding Password,        UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                                         Height="28"
-                                                        Margin="0,5,0,0"/>
+                                                        Margin="0,5,0,0"
+                                                        HorizontalAlignment="Center"/>
+                    
+                    <!--Error text - incorect username or password-->
                     <TextBlock Text="{Binding ErrorMessage}"
-                               Foreground="{StaticResource purple2}"
+                               Foreground="{StaticResource errorText}"
                                FontSize="14"
                                FontWeight="Medium"
                                FontFamily="Montserrat"
-                               HorizontalAlignment="Left"
+                               HorizontalAlignment="Center"
                                Margin="0,10,0,0"
                                TextWrapping="Wrap"/>
+                    
+                    <!--Sign in button-->
                     <Button x:Name="btnLogin"
                             Command="{Binding LoginCommand}"
                         BorderThickness="0"
                         Content="VPIS"
-                        Foreground="{StaticResource gray1}"
+                        Foreground="{StaticResource textColor}"
                         FontSize="12"
                         FontFamily="Montserrat"
                         Cursor="Hand"
@@ -208,6 +232,9 @@
                             <Style TargetType="Button">
                                 <Setter Property="Background" Value="{StaticResource buttonColorRed}"/>
                                 <Style.Triggers>
+                                    <Trigger Property="IsEnabled" Value="False">
+                                        <Setter Property="Background" Value="{StaticResource buttonColorGray}"/>
+                                    </Trigger>
                                     <Trigger Property="IsMouseOver" Value="True">
                                         <Setter Property="Background" Value="{StaticResource buttonColorRedMouseOver}"/>
                                     </Trigger>
@@ -225,14 +252,41 @@
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
-                    <TextBlock Text="Pozabljeno geslo?"
-                                Foreground="{StaticResource textColor}"
-                                FontSize="12"
-                                FontWeight="Medium"
-                                FontFamily="Montserrat"
-                                HorizontalAlignment="Center"
-                                Margin="0,10,0,0"
-                               Cursor="Hand"/>
+                    
+                    <!--Forgot password Button-->
+                    <Button x:Name="forgotPasswordButton"
+                            Content="Pozabljeno geslo?"
+                            Foreground="{StaticResource textColor}"
+                            Background="Transparent"
+                            FontSize="12"
+                            FontFamily="Montserrat"
+                            FontWeight="Medium"
+                            HorizontalAlignment="Center"
+                            Margin="0,10,0,0"
+                            Cursor="Hand"
+                            BorderBrush="Transparent"
+                            Click="forgotPasswordButton_Click">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="Transparent"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="200"
+                                        Height="20"
+                                        CornerRadius="10"
+                                        Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
                 </StackPanel>
             </Grid>
         </Border>
