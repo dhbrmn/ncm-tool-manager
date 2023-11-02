@@ -20,32 +20,20 @@ namespace NcmToolManager.UI.CustomControls
     /// </summary>
     public partial class Clock : UserControl
     {
-        private string _time;
-        private string _date;
-
-
+        System.Windows.Threading.DispatcherTimer Timer = new();
         public Clock()
         {
             InitializeComponent();
+            Timer.Tick += new EventHandler(Timer_Tick);
+            Timer.Interval = new TimeSpan(0, 0, 1);
+            Timer.Start();
+        }
+        private void Timer_Tick( object sender, EventArgs e )
+        {
+            DateTime dateTime = DateTime.Now;
+            timeString.Text = dateTime.Hour + ":" + dateTime.Minute + ":" + dateTime.Second;
+            dateString.Text = dateTime.Day + ". " + dateTime.Month + ". " + dateTime.Year;
         }
 
-        public string Time
-        {
-            get => _time;
-            set
-            {
-                _time = TimeOnly.FromDateTime(DateTime.Now).ToString();
-                _time = value;
-            }
-        }
-        public string Date
-        {
-            get => _date;
-            set
-            {
-                _date = DateOnly.FromDateTime(DateTime.Now).ToString();
-                _date = value;
-            }
-        }
     }
 }
