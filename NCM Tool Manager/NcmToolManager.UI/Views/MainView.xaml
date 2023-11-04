@@ -91,7 +91,7 @@
                                  Tag="{StaticResource buttonColorRed}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="PersonWalkingLuggage" Style="{StaticResource menuButtonIcon}" />
-                            <TextBlock Text="Prodajalci" Style="{StaticResource menuButtonText}"/>
+                            <TextBlock Text="Dobavitelji" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
                     <RadioButton Style="{StaticResource menuButton}"

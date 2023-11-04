@@ -11,6 +11,7 @@ namespace NcmToolManager.Library.Models
         public int ManufacturerId { get; set; }
 
         // Constructors
+        public ToolModel() {}
         public ToolModel(string name)
         {
             Name = name;

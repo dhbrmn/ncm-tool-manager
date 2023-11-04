@@ -30,9 +30,8 @@ namespace NcmToolManager.UI.CustomControls
         }
         private void Timer_Tick( object sender, EventArgs e )
         {
-            DateTime dateTime = DateTime.Now;
-            timeString.Text = dateTime.Hour + ":" + dateTime.Minute + ":" + dateTime.Second;
-            dateString.Text = dateTime.Day + ". " + dateTime.Month + ". " + dateTime.Year;
+            timeString.Text = TimeOnly.FromDateTime(DateTime.Now).ToString();
+            dateString.Text = DateOnly.FromDateTime(DateTime.Now).ToString();
         }
 
     }

@@ -1,15 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NcmToolManager.Library.Models;
+﻿using NcmToolManager.Library.Models;
 using NcmToolManager.Library.DataAccess;
-using NcmToolManager.Library.Functions;
-using System.DirectoryServices.ActiveDirectory;
 using System.Threading;
-using System.ComponentModel;
-using System.Windows;
 using FontAwesome.Sharp;
 using System.Windows.Input;
 
@@ -94,15 +85,21 @@ namespace NcmToolManager.UI.ViewModels
 
         private void LoadCurrentUserData()
         {
-            var user = SqlServerAccess.ReadUserByUsername(Thread.CurrentPrincipal.Identity.Name);
-            if (user != null)
+            UserModel user = new();
+
+            if (Thread.CurrentPrincipal != null)
+            {
+                user = SqlServerAccess.ReadUserByUsername(Thread.CurrentPrincipal.Identity.Name);
+            }
+
+            if (user.Name != null && user.Name != "")
             {
                 User.Name = user.Name;
-                User.DisplayName = $"Welcome {user.Name} {user.LastName}";
+                User.DisplayName = $"Dobrodošel {user.Name} {user.LastName}";
             }
             else
             {
-                User.DisplayName = "Uporabnik ni vpisan.";
+                User.DisplayName = "Uporabnik ni vpisan";
                 //Hide child views.
             }
         }

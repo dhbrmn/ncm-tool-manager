@@ -8,12 +8,42 @@ using System.Xml.Linq;
 using System.Linq;
 using System.Configuration;
 using System.Printing;
+using System.Windows.Documents;
+using System.Collections.Generic;
 
 namespace NcmToolManager.Library.DataAccess
 {
     public class SqlServerAccess : IDataAccess
     {
+        public static List<IssuedToolModel> GetIssuedToolsQuantity()
+        {
+            List<IssuedToolModel> issuedTools = new List<IssuedToolModel>();
+            using (var connection = new SqlConnection(GlobalConfig.SqlCnnString()))
+            {
+                var toolList = connection.Query<ToolModel>("USE NcmToolManagerDb; SELECT Id, Name FROM Tools;");
+                foreach (ToolModel tool in toolList)
+                {
+                    var n = new DynamicParameters();
+                    n.Add("ToolId", tool.Id);
+                    var quantity = connection.ExecuteScalar<int>("USE NcmToolManagerDb; Select COUNT(*) FROM Serials WHERE ToolId = @ToolId;", n);
+                    IssuedToolModel issuedTool = new IssuedToolModel(tool.Name, quantity);
+                    issuedTools.Add(issuedTool);
+                }
+            }
+            return issuedTools;
+        }
         //TODO - Create methods NewTool(), NewSerial()
+        public static void SetMinimalStock( ToolModel toolModel, int minimalStock )
+        {
+            var n = new DynamicParameters();
+            n.Add("ToolId", toolModel.Id);
+            n.Add("MinimalStock", minimalStock);
+            using (var connection = new SqlConnection(GlobalConfig.SqlCnnString()))
+            {
+
+                connection.Execute("USE NcmToolManagerDb; INSERT INTO MinimalStock (ToolId, MinimalStock VALUES (@ToolId, @MinimalStock);", n);
+            }
+        }
         public static void NewSalesPerson(SalesPersonModel newSalesPerson, SellerModel designatedSeller)
         {
             using (var connection = new SqlConnection(GlobalConfig.SqlCnnString()))
@@ -191,6 +221,12 @@ namespace NcmToolManager.Library.DataAccess
             {
                 connection.Execute("USE NcmToolManagerDb; Create TABLE Serials (Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, ToolId INT NOT NULL, UserId INT, FOREIGN KEY (ToolId) REFERENCES Tools (Id), FOREIGN KEY (UserId) REFERENCES Users (Id));");
             }
+            //Crates table MinimalStock
+            using (var connection = new SqlConnection(GlobalConfig.SqlCnnString()))
+            {
+                connection.Execute("USE NcmToolManagerDb; Create TABLE MinimalStock (Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY, ToolId INT NOT NULL, MinimalStock INT, FOREIGN KEY (ToolId) REFERENCES Tools (Id));");
+            }
+
         }
     }
 }

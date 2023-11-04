@@ -21,31 +21,31 @@ namespace NcmToolManager.TestingConsole
             //Console.WriteLine("Done");
             //Console.ReadLine();
 
-            Console.WriteLine("Testing password verification");
-            Console.WriteLine("Input username:");
-            string userName;
-            string password;
-            userName = Console.ReadLine();
-            Console.WriteLine("Input password:");
-            password = Console.ReadLine();
-            Console.WriteLine("Your username is: " + userName);
-            Console.WriteLine("Your password is: " + password);
-            if (PasswordHandling.VerifyUser(userName))
-            {
-                Console.WriteLine("We found a user with this username in the database!");
-                if (PasswordHandling.VerifyPassword(userName, password))
-                {
-                    Console.WriteLine("Your password is correct!");
-                }
-                else
-                {
-                    Console.WriteLine("Your password is incorrect!");
-                }
-            }
-            else
-            {
-                Console.WriteLine("There is no user with this username!");
-            }
+            //Console.WriteLine("Testing password verification");
+            //Console.WriteLine("Input username:");
+            //string userName;
+            //string password;
+            //userName = Console.ReadLine();
+            //Console.WriteLine("Input password:");
+            //password = Console.ReadLine();
+            //Console.WriteLine("Your username is: " + userName);
+            //Console.WriteLine("Your password is: " + password);
+            //if (PasswordHandling.VerifyUser(userName))
+            //{
+            //    Console.WriteLine("We found a user with this username in the database!");
+            //    if (PasswordHandling.VerifyPassword(userName, password))
+            //    {
+            //        Console.WriteLine("Your password is correct!");
+            //    }
+            //    else
+            //    {
+            //        Console.WriteLine("Your password is incorrect!");
+            //    }
+            //}
+            //else
+            //{
+            //    Console.WriteLine("There is no user with this username!");
+            //}
 
             //LoginModel loginModel = new LoginModel();
             //loginModel.UserName = "admin";
@@ -66,6 +66,9 @@ namespace NcmToolManager.TestingConsole
 
             //PasswordModel test = new("abc");
             //Console.ReadLine();
+
+
+
         }
     }
 }
