@@ -21,13 +21,14 @@ namespace NcmToolManager.Library.DataAccess
             using (var connection = new SqlConnection(GlobalConfig.SqlCnnString()))
             {
                 var toolList = connection.Query<ToolModel>("USE NcmToolManagerDb; SELECT Id, Name FROM Tools;");
+                var serialsList = connection.Query<SerialModel>("USE NcmToolManagerDb; Select Id, ToolId FROM Serials;");
+
                 foreach (ToolModel tool in toolList)
                 {
-                    var n = new DynamicParameters();
-                    n.Add("ToolId", tool.Id);
-                    var quantity = connection.ExecuteScalar<int>("USE NcmToolManagerDb; Select COUNT(*) FROM Serials WHERE ToolId = @ToolId;", n);
+                    int quantity =(from serial in serialsList where serial.ToolId == tool.Id select serial).Count();
                     IssuedToolModel issuedTool = new IssuedToolModel(tool.Name, quantity);
-                    issuedTools.Add(issuedTool);
+                    if (issuedTool.Quantity != 0)
+                        issuedTools.Add(issuedTool);
                 }
             }
             return issuedTools;
