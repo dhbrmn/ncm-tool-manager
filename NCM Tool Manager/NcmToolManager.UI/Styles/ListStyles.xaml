@@ -20,6 +20,8 @@
     </ControlTemplate>
         
 <!--Crapper-->
+    
+    
     <Style x:Key="{x:Static GridView.GridViewScrollViewerStyleKey}"
        TargetType="ScrollViewer">
         <Setter Property="Template">
@@ -113,6 +115,7 @@
 
     <Style x:Key="{x:Type GridViewColumnHeader}"
        TargetType="GridViewColumnHeader">
+        <Setter Property="Visibility" Value="Collapsed"/>
         <Setter Property="HorizontalContentAlignment"
           Value="Center" />
         <Setter Property="VerticalContentAlignment"
@@ -167,22 +170,6 @@
             </Setter.Value>
         </Setter>
         <Style.Triggers>
-            <Trigger Property="Role"
-             Value="Floating">
-                <Setter Property="Opacity"
-              Value="0.7" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="GridViewColumnHeader">
-                            <Canvas Name="PART_FloatingHeaderCanvas">
-                                <Rectangle Fill="#60000000"
-                         Width="{TemplateBinding ActualWidth}"
-                         Height="{TemplateBinding ActualHeight}" />
-                            </Canvas>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Trigger>
             <Trigger Property="Role"
              Value="Padding">
                 <Setter Property="Template">
@@ -246,7 +233,7 @@
                             <Setter TargetName="Border"
                     Property="Background">
                                 <Setter.Value>
-                                    <SolidColorBrush Color="{StaticResource color1}" />
+                                    <SolidColorBrush Color="{StaticResource borderLightColor}" />
                                 </Setter.Value>
                             </Setter>
                         </Trigger>
@@ -262,13 +249,21 @@
           Value="true" />
         <Setter Property="OverridesDefaultStyle"
           Value="true" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="Stretch"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListBoxItem">
                     <Border x:Name="Border"
                             Padding="2"
+                            BorderThickness="1"
                             SnapsToDevicePixels="true"
-                            Background="Transparent">
+                            Background="Transparent"
+                            CornerRadius="10"
+                            Margin="0,3,0,0">
+                        <Border.BorderBrush>
+                            <SolidColorBrush Color="{StaticResource borderColor}"/>
+                        </Border.BorderBrush>
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Normal" />
@@ -311,6 +306,8 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    
     <!--CraperEnd-->
             
 </ResourceDictionary>

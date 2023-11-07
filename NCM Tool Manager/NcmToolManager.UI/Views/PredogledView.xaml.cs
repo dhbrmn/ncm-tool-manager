@@ -23,7 +23,6 @@ namespace NcmToolManager.UI.Views
         public PredogledView()
         {
             InitializeComponent();
-
         }
 
     }
