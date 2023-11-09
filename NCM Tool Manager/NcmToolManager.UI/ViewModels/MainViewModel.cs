@@ -3,6 +3,7 @@ using NcmToolManager.Library.DataAccess;
 using System.Threading;
 using FontAwesome.Sharp;
 using System.Windows.Input;
+using System.Windows.Forms.VisualStyles;
 
 namespace NcmToolManager.UI.ViewModels
 {
@@ -12,6 +13,7 @@ namespace NcmToolManager.UI.ViewModels
         private ViewModelBase _currentChildView;
         private string _caption;
         private IconChar _icon;
+        private bool _isSignedIn;
 
         public UserModel User
         {
@@ -53,12 +55,40 @@ namespace NcmToolManager.UI.ViewModels
                 OnPropertyChanged(nameof(Icon));
             }
         }
+        public bool IsSignedIn
+        {
+            get => _isSignedIn;
+            set
+            {
+                _isSignedIn = value;
+                OnPropertyChanged(nameof(IsSignedIn));
+            }
+        }
+
 
         //Commands
         public ICommand ShowPredogledViewCommand
         {
             get;
         }
+        public ICommand ShowDelavciViewCommand
+        {
+            get;
+        }
+        public ICommand ShowOrodjaViewCommand
+        {
+            get;
+        }
+        public ICommand ShowDobaviteljiViewCommand
+        {
+            get;
+        }
+        public ICommand ShowIzdajaViewCommand
+        {
+            get;
+        }
+
+
 
 
         public MainViewModel()
@@ -67,6 +97,10 @@ namespace NcmToolManager.UI.ViewModels
 
             //Initialize commands
             ShowPredogledViewCommand = new RelayCommand(ExecuteShowPredogledViewCommand);
+            ShowDelavciViewCommand = new RelayCommand(ExecuteShowDelavciViewCommand);
+            ShowOrodjaViewCommand = new RelayCommand(ExecuteShowOrodjaViewCommand);
+            ShowDobaviteljiViewCommand = new RelayCommand(ExecuteShowDobaviteljiViewCommand);
+            ShowIzdajaViewCommand = new RelayCommand(ExecuteShowIzdajaViewCommand);
 
             //Default view
             ExecuteShowPredogledViewCommand(null);
@@ -76,12 +110,40 @@ namespace NcmToolManager.UI.ViewModels
 
 
 
-        private void ExecuteShowPredogledViewCommand( object obj )
+        private void ExecuteShowPredogledViewCommand( object? obj )
         {
             CurrentChildView= new PredogledViewModel();
             Caption = "Predogled";
             Icon = IconChar.Home;
         }
+
+        private void ExecuteShowDelavciViewCommand( object? obj )
+        {
+            CurrentChildView = new DelavciViewModel();
+            Caption = "Delavci";
+            Icon = IconChar.HelmetSafety;
+        }
+        private void ExecuteShowOrodjaViewCommand( object? obj )
+        {
+            CurrentChildView = new OrodjaViewModel();
+            Caption = "Orodja";
+            Icon = IconChar.Toolbox;
+        }
+        private void ExecuteShowDobaviteljiViewCommand( object? obj )
+        {
+            CurrentChildView = new DobaviteljiViewModel();
+            Caption = "Dobavitelji";
+            Icon = IconChar.PersonWalkingLuggage;
+        }
+        private void ExecuteShowIzdajaViewCommand( object? obj )
+        {
+            CurrentChildView = new IzdajaViewModel();
+            Caption = "Izdaja in prejem orodja";
+            Icon = IconChar.Tools;
+        }
+
+
+
 
         private void LoadCurrentUserData()
         {
@@ -96,12 +158,14 @@ namespace NcmToolManager.UI.ViewModels
             {
                 User.Name = user.Name;
                 User.DisplayName = $"Dobrodošel {user.Name} {user.LastName}";
+                IsSignedIn = true;
             }
             else
             {
                 User.DisplayName = "Uporabnik ni vpisan";
-                //Hide child views.
+                IsSignedIn = false;
             }
         }
+
     }
 }

@@ -8,7 +8,7 @@
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
              xmlns:customcontrols="clr-namespace:NcmToolManager.UI.CustomControls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
+             d:DesignHeight="450" d:DesignWidth="950"
              Background="Transparent">
     <UserControl.DataContext>
         <viewModel:PredogledViewModel/>
@@ -21,6 +21,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
+            <RowDefinition Height="60"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         
@@ -29,17 +30,17 @@
                               Grid.Column="1"
                               HorizontalAlignment="Right"
                               Margin="0,0,20,0"/>
-        <StackPanel Grid.Row="1"
-                    Grid.Column="0">
-            <TextBlock Text="Orodja v proizvodnji:"
+        <TextBlock Text="Orodja izdana v proizvodnjo:"
                        Foreground="{StaticResource textColor}"
                        FontSize="20"
-                       Margin="0,30,0,0"
+                       Margin="0,15,0,0"
                        FontWeight="Medium"
-                       FontFamily="Montserrat"/>
+                       FontFamily="Montserrat"
+                       Grid.Column="0"
+                       Grid.Row="1"/>
             
             <!--Issued tools overview-->
-            <ListView x:Name="issuedToolsList"
+        <ListView x:Name="issuedToolsList"
                       FontFamily="Montserrat"
                       Foreground="{StaticResource textColor}"
                       Background="Transparent"
@@ -49,31 +50,30 @@
                       ItemsSource="{Binding IssuedTools}"
                       IsSynchronizedWithCurrentItem="True"
                       MinHeight="350"
-                      Height="Auto">
-                <ListView.View>
-                    <GridView AllowsColumnReorder="False"
+                      Height="Auto"
+                      Grid.ColumnSpan="2"
+                      Grid.Row="2">
+            <ListView.View>
+                <GridView AllowsColumnReorder="False"
                               ColumnHeaderToolTip="Izdano orodje">
-                        <GridView.Columns>
-                            <GridViewColumn DisplayMemberBinding="{Binding Path=Name}"
-                                            Width="200"/>
-                            <GridViewColumn Width="150">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock HorizontalAlignment="Right"
+                    <GridView.Columns>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Name}"
+                                            Width="850"/>
+                        <GridViewColumn Width="Auto">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock HorizontalAlignment="Right"
                                                    Text="{Binding Path=Quantity}"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                        </GridView.Columns>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-        </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView.Columns>
+                </GridView>
+            </ListView.View>
+        </ListView>
 
         <!--Tools under mininmal stock overview-->
-        <StackPanel Grid.Row="1"
-                    Grid.Column="1">
-            <TextBlock Text="Orodja pod minimalno zalogo:"
+            <!--<TextBlock Text="Orodja pod minimalno zalogo:"
                        FontSize="20"
                        FontWeight="Medium"
                        FontFamily="Montserrat"
@@ -90,8 +90,7 @@
                       Margin="15,10,0,0"
                       IsSynchronizedWithCurrentItem="True">
                 
-            </ListView>
-        </StackPanel>
+            </ListView>-->
         
     </Grid>
 </UserControl>

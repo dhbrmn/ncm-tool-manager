@@ -10,6 +10,7 @@ namespace NcmToolManager.Library.Models
     {
         public int Id {get; set; }
         public int ToolId {get; set; }
+        public string? ToolName { get; set; }
         public int MinimalStock {get; set; }
 
         public MinimalStockModel() { }
@@ -18,6 +19,10 @@ namespace NcmToolManager.Library.Models
             ToolId = toolId;
             MinimalStock = minimalStock;
         }
-
+        public MinimalStockModel (string toolName, int minimalStock )
+        {
+        ToolName = toolName;
+        MinimalStock = minimalStock;
+        }
     }
 }

@@ -32,7 +32,7 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <!--Navi menu-->
-                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="300"/>
                 <!--Content section-->
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
@@ -65,7 +65,6 @@
                     
                     <!--Menu Buttons-->
                     <RadioButton Style="{StaticResource menuButton}"
-                                 Tag="{StaticResource buttonColorRed}"
                                  Command="{Binding ShowPredogledViewCommand}"
                                  IsChecked="True">
                         <StackPanel Orientation="Horizontal">
@@ -74,31 +73,35 @@
                         </StackPanel>
                     </RadioButton>
                     <RadioButton Style="{StaticResource menuButton}"
-                                 Tag="{StaticResource buttonColorRed}">
+                                 Command="{Binding ShowDelavciViewCommand}"
+                                 IsEnabled="{Binding IsSignedIn}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="HelmetSafety" Style="{StaticResource menuButtonIcon}" />
                             <TextBlock Text="Delavci" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
                     <RadioButton Style="{StaticResource menuButton}"
-                                 Tag="{StaticResource buttonColorRed}">
+                                 IsEnabled="{Binding IsSignedIn}"
+                                 Command="{Binding ShowOrodjaViewCommand}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Toolbox" Style="{StaticResource menuButtonIcon}" />
                             <TextBlock Text="Orodja" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
                     <RadioButton Style="{StaticResource menuButton}"
-                                 Tag="{StaticResource buttonColorRed}">
+                                 IsEnabled="{Binding IsSignedIn}"
+                                 Command="{Binding ShowDobaviteljiViewCommand}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="PersonWalkingLuggage" Style="{StaticResource menuButtonIcon}" />
                             <TextBlock Text="Dobavitelji" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
                     <RadioButton Style="{StaticResource menuButton}"
-                                 Tag="{StaticResource buttonColorRed}">
+                                 IsEnabled="{Binding IsSignedIn}"
+                                 Command="{Binding ShowIzdajaViewCommand}">
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Tools" Style="{StaticResource menuButtonIcon}" />
-                            <TextBlock Text="Izdaja orodja" Style="{StaticResource menuButtonText}"/>
+                            <TextBlock Text="Izdaja in prejem orodja" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
 
@@ -167,13 +170,13 @@
                                     Orientation="Horizontal"
                                     VerticalAlignment="Center">
                             <fa:IconImage Icon="{Binding Icon}"
-                                          Height="20"
-                                          Width="20"
+                                          Height="30"
+                                          Width="30"
                                           Foreground="{StaticResource buttonColorRed}"
-                                          Margin="35,0,10,0"/>
+                                          Margin="35,0,25,0"/>
                             <TextBlock Text="{Binding Caption}"
                                        Foreground="{StaticResource textColor}"
-                                       FontSize="16"
+                                       FontSize="24"
                                        FontFamily="Montserrat"
                                        FontWeight="Medium"
                                        VerticalAlignment="Center"/>
@@ -210,7 +213,9 @@
                     <!--Content-->
                     <ContentControl Content="{Binding CurrentChildView}"
                                     Grid.Row="2"
-                                    Margin="25"/>
+                                    Margin="25"
+                                    Height="Auto"
+                                    Width="Auto"/>
 
                 </Grid>
                 

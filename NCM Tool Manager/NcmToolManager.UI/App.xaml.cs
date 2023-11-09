@@ -28,5 +28,5 @@ namespace NcmToolManager.UI
                 }
             };
         }
-    }
+            }
 }
