@@ -21,6 +21,18 @@
         <DataTemplate DataType="{x:Type viewModel:PredogledViewModel}">
             <local:PredogledView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:DelavciViewModel}">
+            <local:DelavciView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:OrodjaViewModel}">
+            <local:OrodjaView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:DobaviteljiViewModel}">
+            <local:DobaviteljiView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:IzdajaViewModel}">
+            <local:IzdajaView/>
+        </DataTemplate>
     </Window.Resources>
     
     <Border CornerRadius="10"
@@ -205,7 +217,8 @@
                                        VerticalAlignment="Center"
                                        Margin="5,0,10,0"/>
 
-                            <fa:IconBlock Icon="User" Foreground="{StaticResource textColor}" IconFont="Solid"/>
+                            <fa:IconBlock Icon="User"
+                                          Foreground="{StaticResource textColor}"                                 IconFont="Solid"/>
                         </StackPanel>
                         
                     </Grid>

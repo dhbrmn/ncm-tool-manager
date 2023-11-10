@@ -8,5 +8,8 @@ namespace NcmToolManager.UI.ViewModels
 {
     public class DelavciViewModel : ViewModelBase
     {
+        public DelavciViewModel()
+        {
+        }
     }
 }
