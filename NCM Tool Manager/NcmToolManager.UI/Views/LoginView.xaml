@@ -220,13 +220,13 @@
                     <!--Sign in button-->
                     <Button x:Name="btnLogin"
                             Command="{Binding LoginCommand}"
-                        BorderThickness="0"
-                        Content="VPIS"
-                        Foreground="{StaticResource textColor}"
-                        FontSize="12"
-                        FontFamily="Montserrat"
-                        Cursor="Hand"
-                        Grid.Column="2"
+                            BorderThickness="0"
+                            Content="VPIS"
+                            Foreground="{StaticResource textColor}"
+                            FontSize="12"
+                            FontFamily="Montserrat"
+                            Cursor="Hand"
+                            Grid.Column="2"
                             Margin="0,20,0,0">
                         <Button.Style>
                             <Style TargetType="Button">

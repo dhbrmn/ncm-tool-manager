@@ -4,9 +4,133 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:NcmToolManager.UI.Views"
+             xmlns:viewModel="clr-namespace:NcmToolManager.UI.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="950">
+
+    <UserControl.DataContext>
+        <viewModel:IzdajaViewModel/>
+    </UserControl.DataContext>
+
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <ListView Grid.Row="0"
+                  Margin="0,20,0,15">
             
+        </ListView>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="200"/>
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="printQrCode"
+                    HorizontalAlignment="Left"
+                    Content="Natisni QR kodo"
+                    Foreground="{StaticResource textColor}"
+                    FontFamily="Montserrat"
+                    FontSize="12"
+                    FontWeight="Medium"
+                    Grid.Column="0">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background"
+                                Value="{StaticResource buttonColorRed}"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+                                <Setter Property="Background"
+                                        Value="{StaticResource buttonColorRedMouseOver}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Width="150"
+                                Height="25"
+                                CornerRadius="12.5"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+            <Button x:Name="rentToolButton"
+                    Content="Izdaja orodja"
+                    Foreground="{StaticResource textColor}"
+                    FontFamily="Montserrat"
+                    FontSize="12"
+                    FontWeight="Medium"
+                    Grid.Column="2">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background"
+                                Value="{StaticResource buttonColorRed}"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+                                <Setter Property="Background"
+                                        Value="{StaticResource buttonColorRedMouseOver}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Width="150"
+                                Height="25"
+                                CornerRadius="12.5"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+            <Button x:Name="recieveToolButton"
+                    Content="Prejem orodja"
+                    Foreground="{StaticResource textColor}"
+                    FontFamily="Montserrat"
+                    FontSize="12"
+                    FontWeight="Medium"
+                    Grid.Column="3">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background"
+                                Value="{StaticResource buttonColorRed}"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+                                <Setter Property="Background"
+                                        Value="{StaticResource buttonColorRedMouseOver}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Width="150"
+                                Height="25"
+                                CornerRadius="12.5"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+        </Grid>
     </Grid>
 </UserControl>
