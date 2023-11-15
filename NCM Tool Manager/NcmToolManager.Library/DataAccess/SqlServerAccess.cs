@@ -15,6 +15,21 @@ namespace NcmToolManager.Library.DataAccess
 {
     public class SqlServerAccess : IDataAccess
     {
+        public static List<UserModel> GetAllUsers()
+        {
+            
+            using (var connection = new SqlConnection(GlobalConfig.SqlCnnString()))
+            {
+                List<UserModel> allUsers = new List<UserModel>();
+                var queryUsers = connection.Query<UserModel>("USE NcmToolManagerDb; SELECT Id, Name, LastName FROM Users;");
+                foreach (UserModel user in queryUsers)
+                {
+                    if (user.Name != "Administrator")
+                    allUsers.Add(user);
+                }
+                return allUsers;
+            }
+        }
         public static List<IssuedToolModel> GetIssuedToolsQuantity()
         {
             List<IssuedToolModel> issuedTools = new List<IssuedToolModel>();
@@ -33,18 +48,19 @@ namespace NcmToolManager.Library.DataAccess
             }
             return issuedTools;
         }
-        //TODO - Create methods NewTool(), NewSerial()
-        public static void SetMinimalStock( ToolModel toolModel, int minimalStock )
-        {
-            var n = new DynamicParameters();
-            n.Add("ToolId", toolModel.Id);
-            n.Add("MinimalStock", minimalStock);
-            using (var connection = new SqlConnection(GlobalConfig.SqlCnnString()))
-            {
+        //TODO - Create methods NewTool(), NewSerial
+ 
+        //public static void SetMinimalStock( ToolModel toolModel, int minimalStock )
+        //{
+        //    var n = new DynamicParameters();
+        //    n.Add("ToolId", toolModel.Id);
+        //    n.Add("MinimalStock", minimalStock);
+        //    using (var connection = new SqlConnection(GlobalConfig.SqlCnnString()))
+        //    {
 
-                connection.Execute("USE NcmToolManagerDb; INSERT INTO MinimalStock (ToolId, MinimalStock VALUES (@ToolId, @MinimalStock);", n);
-            }
-        }
+        //        connection.Execute("USE NcmToolManagerDb; INSERT INTO MinimalStock (ToolId, MinimalStock VALUES (@ToolId, @MinimalStock);", n);
+        //    }
+        //}
         public static void NewSalesPerson(SalesPersonModel newSalesPerson, SellerModel designatedSeller)
         {
             using (var connection = new SqlConnection(GlobalConfig.SqlCnnString()))

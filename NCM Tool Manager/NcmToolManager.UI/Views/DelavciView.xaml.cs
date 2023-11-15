@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NcmToolManager.Library.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,23 @@ namespace NcmToolManager.UI.Views
     /// </summary>
     public partial class DelavciView : UserControl
     {
+        private string _workerName;
         public DelavciView()
         {
             InitializeComponent();
+        }
+
+        public string WorkerName
+        {
+            get => _workerName;
+            set => _workerName =  value ;
+        }
+
+        private void allWorkersList_SelectionChanged( object sender, SelectionChangedEventArgs e )
+        {
+            UserModel selectedUser = (UserModel)this.allWorkersList.SelectedItem;
+            WorkerName = selectedUser.Name + " " + selectedUser.LastName;
+            this.workerName.Text = WorkerName;
         }
     }
 }

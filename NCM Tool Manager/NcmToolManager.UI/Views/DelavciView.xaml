@@ -24,8 +24,25 @@
 
         <ListView Grid.Row="0"
                   Grid.Column="0"
-                  Margin="0,30,15,10">
-            
+                  Margin="0,30,15,10"
+                  x:Name="allWorkersList"
+                  FontFamily="Montserrat"
+                  Foreground="{StaticResource textColor}"
+                  Background="Transparent"
+                  FontWeight="Light"
+                  FontSize="16"
+                  ItemsSource="{Binding AllWorkers}"
+                  SelectionChanged="allWorkersList_SelectionChanged">
+            <ListView.View>
+                <GridView AllowsColumnReorder="False"
+                          ColumnHeaderToolTip="Seznam delavcev">
+                    <GridView.Columns>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Name}"
+                                        Width="150"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=LastName}"/>
+                    </GridView.Columns>
+                </GridView>
+            </ListView.View>
         </ListView>
 
         <Border Grid.Column="1"
@@ -43,8 +60,24 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0"/>
-                <TextBlock Grid.Row="1"/>
+                <TextBlock Grid.Row="0"
+                           x:Name="workerName"
+                           FontSize="22"
+                           FontFamily="Montserrat"
+                           FontWeight="Medium"
+                           Foreground="{StaticResource textColor}"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           Margin="15,0,0,0"/>
+                <TextBlock Grid.Row="1"
+                           FontSize="16"
+                           FontFamily="Montserrat"
+                           FontWeight="Light"
+                           Text="Izdana orodja:"
+                           Foreground="{StaticResource textColor}"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Bottom"
+                           Margin="15,0,0,0"/>
                 <ListBox Grid.Row="2"
                          Background="Transparent"
                          BorderBrush="Transparent"/>
