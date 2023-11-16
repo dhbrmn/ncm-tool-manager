@@ -32,7 +32,7 @@
                   FontWeight="Light"
                   FontSize="16"
                   ItemsSource="{Binding AllWorkers}"
-                  SelectionChanged="allWorkersList_SelectionChanged">
+                  SelectedItem="{Binding SelectedWorker}">
             <ListView.View>
                 <GridView AllowsColumnReorder="False"
                           ColumnHeaderToolTip="Seznam delavcev">
@@ -61,7 +61,8 @@
             </Grid.RowDefinitions>
 
                 <TextBlock Grid.Row="0"
-                           x:Name="workerName"
+                           x:Name="workerNameTextBox"
+                           Text="{Binding WorkerName}"
                            FontSize="22"
                            FontFamily="Montserrat"
                            FontWeight="Medium"
@@ -70,6 +71,7 @@
                            VerticalAlignment="Center"
                            Margin="15,0,0,0"/>
                 <TextBlock Grid.Row="1"
+                           x:Name="izdanaOrodjaText"
                            FontSize="16"
                            FontFamily="Montserrat"
                            FontWeight="Light"
@@ -77,7 +79,8 @@
                            Foreground="{StaticResource textColor}"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Bottom"
-                           Margin="15,0,0,0"/>
+                           Margin="15,0,0,0"
+                           IsVisibleChanged="izdanaOrodjaText_IsVisibleChanged"/>
                 <ListBox Grid.Row="2"
                          Background="Transparent"
                          BorderBrush="Transparent"/>

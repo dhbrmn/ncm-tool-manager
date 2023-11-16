@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using NcmToolManager.UI.ViewModels;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -21,23 +22,21 @@ namespace NcmToolManager.UI.Views
     /// </summary>
     public partial class DelavciView : UserControl
     {
-        private string _workerName;
         public DelavciView()
         {
             InitializeComponent();
         }
 
-        public string WorkerName
+        private void izdanaOrodjaText_IsVisibleChanged( object sender, DependencyPropertyChangedEventArgs e )
         {
-            get => _workerName;
-            set => _workerName =  value ;
-        }
-
-        private void allWorkersList_SelectionChanged( object sender, SelectionChangedEventArgs e )
-        {
-            UserModel selectedUser = (UserModel)this.allWorkersList.SelectedItem;
-            WorkerName = selectedUser.Name + " " + selectedUser.LastName;
-            this.workerName.Text = WorkerName;
+            if (this.allWorkersList.SelectedItem != null)
+            {
+                this.izdanaOrodjaText.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                this.izdanaOrodjaText.Visibility = Visibility.Hidden;
+            }
         }
     }
 }
