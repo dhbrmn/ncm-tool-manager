@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace NcmToolManager.UI.ViewModels
 {
@@ -13,10 +14,7 @@ namespace NcmToolManager.UI.ViewModels
         private List<UserModel> allWorkers;
         private string workerName;
         private UserModel selectedWorker;
-        public DelavciViewModel()
-        {
-            LoadAllWorkers();
-        }
+       
 
         public List<UserModel> AllWorkers
         {
@@ -56,6 +54,11 @@ namespace NcmToolManager.UI.ViewModels
                 OnPropertyChanged(nameof(SelectedWorker));
                 WorkerName = SelectedWorker.Name + " " + SelectedWorker.LastName;
             }
+        }
+
+        public DelavciViewModel()
+        {
+            LoadAllWorkers();
         }
 
         private void LoadAllWorkers()

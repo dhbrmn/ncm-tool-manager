@@ -100,7 +100,8 @@
                     Foreground="{StaticResource textColor}"
                     FontFamily="Montserrat"
                     FontSize="12"
-                    FontWeight="Medium">
+                    FontWeight="Medium"
+                    Click="createNewWorkerButton_Click">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Background"

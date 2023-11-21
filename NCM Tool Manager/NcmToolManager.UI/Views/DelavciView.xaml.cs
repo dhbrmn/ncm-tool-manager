@@ -38,5 +38,10 @@ namespace NcmToolManager.UI.Views
                 this.izdanaOrodjaText.Visibility = Visibility.Hidden;
             }
         }
+
+        private void createNewWorkerButton_Click( object sender, RoutedEventArgs e )
+        {
+        
+        }
     }
 }
