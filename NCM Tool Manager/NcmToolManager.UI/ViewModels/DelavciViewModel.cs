@@ -1,5 +1,6 @@
 ﻿using NcmToolManager.Library.DataAccess;
 using NcmToolManager.Library.Models;
+using NcmToolManager.UI.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,6 +43,8 @@ namespace NcmToolManager.UI.ViewModels
             }
         }
 
+        ICommand OpenCreateUserWindowCommand { get; }
+
         public UserModel SelectedWorker
         {
             get
@@ -59,11 +62,19 @@ namespace NcmToolManager.UI.ViewModels
         public DelavciViewModel()
         {
             LoadAllWorkers();
+            OpenCreateUserWindowCommand = new RelayCommand(OpenCreateUserWindow);
+        }
+
+        private void OpenCreateUserWindow( object obj )
+        {
+            throw new NotImplementedException();
         }
 
         private void LoadAllWorkers()
         {
             AllWorkers = SqlServerAccess.GetAllUsers();
         }
+
+
     }
 }

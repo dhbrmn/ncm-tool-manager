@@ -49,7 +49,7 @@ namespace NcmToolManager.Library.DataAccess
             return issuedTools;
         }
         //TODO - Create methods NewTool(), NewSerial
- 
+
         //public static void SetMinimalStock( ToolModel toolModel, int minimalStock )
         //{
         //    var n = new DynamicParameters();
@@ -61,6 +61,24 @@ namespace NcmToolManager.Library.DataAccess
         //        connection.Execute("USE NcmToolManagerDb; INSERT INTO MinimalStock (ToolId, MinimalStock VALUES (@ToolId, @MinimalStock);", n);
         //    }
         //}
+        public static bool UserExists( string name, string lastName )
+        {
+            name = name.ToUpper();
+            lastName = lastName.ToUpper();
+
+            using (var connection = new SqlConnection(GlobalConfig.SqlCnnString()))
+            {
+                var input = new DynamicParameters();
+                input.Add("@Name", name);
+                input.Add("@LastName", lastName);
+
+                connection.Open();
+                var reader = connection.ExecuteReader("USE NcmToolManagerDb; SELECT 1 FROM Users WHERE Name = @Name AND LastName = @LastName ;", input);
+                return reader.Read();
+            }
+
+
+        }
         public static void NewSalesPerson(SalesPersonModel newSalesPerson, SellerModel designatedSeller)
         {
             using (var connection = new SqlConnection(GlobalConfig.SqlCnnString()))
@@ -101,15 +119,17 @@ namespace NcmToolManager.Library.DataAccess
                 }
         }
      
-        public static void NewUser(UserModel newUser)
+        public static void NewUser(string name, string lastName)
         {
                 using (var connection = new SqlConnection(GlobalConfig.SqlCnnString()))
                 {
                     var input = new DynamicParameters();
-                    input.Add("@Name", newUser.Name);
-                    input.Add("@LastName", newUser.LastName);
+                    input.Add("@Name", name);
+                    input.Add("@LastName", lastName);
 
+                    connection.Open();
                     connection.Execute("USE NcmToolManagerDb; INSERT INTO Users (Name, LastName) VALUES (@Name, @LastName);", input);
+                    connection.Close();
                 }
         }
 

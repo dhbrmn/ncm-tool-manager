@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:NcmToolManager.UI.Views"
         xmlns:viewModel="clr-namespace:NcmToolManager.UI.ViewModels"
         mc:Ignorable="d"
-        Title="Ustvari novega delavca" Height="150" Width="300"
+        Title="Ustvari novega delavca" Height="200" Width="450"
         WindowStartupLocation="CenterScreen"
         Background="Transparent"
         AllowsTransparency="True"
@@ -15,6 +15,14 @@
     <Window.DataContext>
         <viewModel:CreateNewWorkerViewModel/>
     </Window.DataContext>
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
+    </Window.Resources>
+
+    <Window.Visibility>
+        <Binding Path="IsViewVisible" Mode="TwoWay" Converter="{StaticResource BooleanToVisibility}"/>
+    </Window.Visibility>
 
     <Border CornerRadius="10"
             BorderThickness="2"
@@ -25,16 +33,16 @@
         
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="55"/>
+                <RowDefinition Height="25"/>
                 <RowDefinition Height="35"/>
-                <RowDefinition Height="15"/>
-                <RowDefinition Height="25"/>
-                <RowDefinition Height="25"/>
+                <RowDefinition Height="35"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             
             
             <TextBlock Text="Za ustvarjanje novega delavca vpišite naslednje podatke:"
-                       FontSize="10"
+                       FontSize="16"
                        FontWeight="Medium"
                        FontFamily="Montserrat"
                        Foreground="{StaticResource buttonColorGray}"
@@ -52,36 +60,44 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Text="Ime:"
-                           FontSize="10"
+                           FontSize="12"
                            FontWeight="Medium"
                            FontFamily="Montserrat"
                            Foreground="{StaticResource buttonColorGray}"
                            VerticalAlignment="Center"
                            Grid.Column="1"
                                HorizontalAlignment="Center"/>
-                
-                
-                <Border BorderBrush="{StaticResource gradientColor5Brush}"
-                        BorderThickness="1"
-                        CornerRadius="5"
-                        Margin="0,5,0,5"
-                        Grid.Column="2">
-                            
-                            
-                    <TextBox x:Name="nameTextBox"
+
+
+                <TextBox x:Name="nameTextBox"
+                             Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
                              Background="Transparent"
                              Foreground="{StaticResource textColor}"
-                             Height="10"
+                             FontFamily="Montserrat"
+                             FontSize="12"
+                             FontWeight="Light"
+                             Height="20"
                              VerticalAlignment="Center"
                              Margin="3,0,3,0"
-                             Grid.Column="2">
-                        
-                        <TextBox.BorderBrush>
-                            <SolidColorBrush Color="Transparent"/>
-                        </TextBox.BorderBrush>
-                        
-                    </TextBox>
-                </Border>
+                             Grid.Column="2"
+                             BorderThickness="0,0,0,1">
+                    <TextBox.Template>
+                        <ControlTemplate TargetType="TextBox">
+                            <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                                <ScrollViewer Margin="0"
+x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter Property="BorderBrush" Value="{StaticResource mouseOverTrigger}"/>
+                                </Trigger>
+                                <Trigger Property="IsFocused" Value="true">
+                                    <Setter Property="BorderBrush" Value="{StaticResource focusedTrigger}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </TextBox.Template>
+                </TextBox>
             </Grid>
                     
                     
@@ -92,38 +108,53 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="40"/>
                 </Grid.ColumnDefinitions>
-
                 <TextBlock Text="Priimek:"
-                           FontSize="10"
+                           FontSize="12"
                            FontFamily="Montserrat"
                            Foreground="{StaticResource buttonColorGray}"
                            FontWeight="Medium"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
                            Grid.Column="1"/>
-                <Border BorderBrush="{StaticResource gradientColor5Brush}"
-                        BorderThickness="1"
-                        CornerRadius="5"
-                        Margin="0,5,0,5"
-                        Grid.Column="2">
-                    <TextBox x:Name="lastNameTextBox"
+
+                <TextBox x:Name="lastNameTextBox"
+                             Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}"
                              Background="Transparent"
+                             Foreground="{StaticResource textColor}"
+                             FontSize="12"
+                             FontFamily="Montserrat"
+                             FontWeight="Light"
+                             Height="20"
+                             VerticalAlignment="Center"
                              Grid.Column="2"
-                             Margin="3,0,3,0">
-                        <TextBox.BorderBrush>
-                            <SolidColorBrush Color="Transparent"/>
-                        </TextBox.BorderBrush>
-                    </TextBox>
-                </Border>
+                             Margin="3,0,3,0"
+                         BorderThickness="0,0,0,1">
+                    <TextBox.Template>
+                        <ControlTemplate TargetType="TextBox">
+                            <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                                <ScrollViewer Margin="0"
+x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="true">
+                                    <Setter Property="BorderBrush" Value="{StaticResource mouseOverTrigger}"/>
+                                </Trigger>
+                                <Trigger Property="IsFocused" Value="true">
+                                    <Setter Property="BorderBrush" Value="{StaticResource focusedTrigger}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </TextBox.Template>
+                </TextBox>
             </Grid>
                     
                     
             <Grid Grid.Row="4">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30"/>
-                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="180"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="180"/>
                     <ColumnDefinition Width="30"/>
                 </Grid.ColumnDefinitions>
                 
@@ -134,13 +165,19 @@
                         Content="Potrdi"
                         FontFamily="Montserrat"
                         FontSize="10"
+                        Cursor="Hand"
                         VerticalAlignment="Center"
-                        Foreground="{StaticResource textColor}">
+                        Foreground="{StaticResource textColor}"
+                        Command="{Binding CreateWorkerCommand}">
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="Background"
          Value="{StaticResource buttonColorRed}"/>
                             <Style.Triggers>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Background" Value="{StaticResource buttonColorGrayActive}"/>
+                                    <Setter Property="Foreground" Value="Transparent"/>
+                                </Trigger>
                                 <Trigger Property="IsMouseOver"
               Value="True">
                                     <Setter Property="Background"
@@ -151,9 +188,9 @@
                     </Button.Style>
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
-                            <Border Width="100"
-         Height="12"
-         CornerRadius="6"
+                            <Border Width="150"
+         Height="16"
+         CornerRadius="8"
          Background="{TemplateBinding Background}">
                                 <ContentPresenter VerticalAlignment="Center"
                        HorizontalAlignment="Center"/>
@@ -169,8 +206,10 @@
                         Content="Prekliči"
                         FontFamily="Montserrat"
                         FontSize="10"
+                        Cursor="Hand"
                         VerticalAlignment="Center"
-                        Foreground="{StaticResource textColor}">
+                        Foreground="{StaticResource textColor}"
+                        Click="cancelButton_Click">
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="Background"
@@ -186,9 +225,9 @@
                     </Button.Style>
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
-                            <Border Width="100"
-         Height="12"
-         CornerRadius="6"
+                            <Border Width="150"
+         Height="16"
+         CornerRadius="8"
          Background="{TemplateBinding Background}">
                                 <ContentPresenter VerticalAlignment="Center"
                        HorizontalAlignment="Center"/>

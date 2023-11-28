@@ -12,7 +12,7 @@
         <viewModel:DelavciViewModel/>
     </UserControl.DataContext>
 
-    <Grid>
+    <Grid xmlns:i="http://schemas.microsoft.com/xaml/behaviors">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="350"/>
@@ -127,6 +127,7 @@
                     </ControlTemplate>
                 </Button.Template>
             </Button>
+            
 
         </Grid>
 
