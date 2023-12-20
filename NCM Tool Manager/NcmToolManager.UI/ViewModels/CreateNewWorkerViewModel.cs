@@ -17,6 +17,7 @@ namespace NcmToolManager.UI.ViewModels
         private string _lastName;
         private bool _validData;
         private bool _isViewVisible = true;
+        private string _errorMessage = "Ta delavec že obstaja";
 
         public string Name
         {
@@ -34,6 +35,15 @@ namespace NcmToolManager.UI.ViewModels
             {
                 _lastName = value;
                 OnPropertyChanged(nameof(LastName));
+            }
+        }
+        public string ErrorMessage
+        {
+            get => _errorMessage;
+            set
+            {
+                _errorMessage = value;
+                OnPropertyChanged(nameof(ErrorMessage));
             }
         }
 

@@ -93,7 +93,7 @@
                 <ColumnDefinition Width="160"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            
+
             <Button x:Name="createNewWorkerButton"
                     HorizontalAlignment="Left"
                     Content="Dodaj novega delavca"
@@ -101,7 +101,7 @@
                     FontFamily="Montserrat"
                     FontSize="12"
                     FontWeight="Medium"
-                    Click="createNewWorkerButton_Click">
+                    Command="{Binding OpenCreateUserWindowCommand}">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Background"

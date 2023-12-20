@@ -27,6 +27,8 @@ namespace NcmToolManager.UI.Views
             InitializeComponent();
         }
 
+
+
         private void izdanaOrodjaText_IsVisibleChanged( object sender, DependencyPropertyChangedEventArgs e )
         {
             if (this.allWorkersList.SelectedItem != null)
@@ -38,5 +40,6 @@ namespace NcmToolManager.UI.Views
                 this.izdanaOrodjaText.Visibility = Visibility.Hidden;
             }
         }
+
     }
 }

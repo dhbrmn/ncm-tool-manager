@@ -43,7 +43,7 @@ namespace NcmToolManager.UI.ViewModels
             }
         }
 
-        ICommand OpenCreateUserWindowCommand { get; }
+        public ICommand OpenCreateUserWindowCommand { get; }
 
         public UserModel SelectedWorker
         {
@@ -62,12 +62,19 @@ namespace NcmToolManager.UI.ViewModels
         public DelavciViewModel()
         {
             LoadAllWorkers();
-            OpenCreateUserWindowCommand = new RelayCommand(OpenCreateUserWindow);
+            OpenCreateUserWindowCommand = new RelayCommand(OpenCreateUserWindow, CanOpenCreateUserWindow);
+        }
+
+        private bool CanOpenCreateUserWindow( object obj )
+        {
+            return true;
         }
 
         private void OpenCreateUserWindow( object obj )
         {
-            throw new NotImplementedException();
+            CreateNewWorker newWorkerWindow = new CreateNewWorker();
+            newWorkerWindow.ShowDialog();
+            LoadAllWorkers();
         }
 
         private void LoadAllWorkers()
